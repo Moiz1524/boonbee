@@ -3,13 +3,22 @@ class Ability
 
   def initialize(user)
     user ||= User.new # guest user (not logged in)
-      if user.admin?
+      if user.admin
         can :read, :all
         cannot :update,:all
         cannot :destroy,:all
         can :manage,:admin_panel
       else
-        cannot :manage,:all
+          cannot :manage,:all
       end
+      
+      # if user.admin?
+      #   can :read, :all
+      #   cannot :update,:all
+      #   cannot :destroy,:all
+      #   can :manage,:admin_panel
+      # else
+      #   cannot :manage,:all
+      # end
   end
 end

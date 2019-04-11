@@ -1,0 +1,25 @@
+<div class="container mt-5">
+    <h3>Listing All Campaigns</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Occasion</th>
+                <th>Date</th>
+                <th>Details</th>
+                <th>Funds</th>
+                <th><%= link_to "Add new Campaign", new_campaign_path%></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @campaigns.each do |campaign|%>
+                <tr>
+                    <td><%= campaign.occ_type%></td>
+                    <td><%= campaign.occ_date%></td>
+                    <td><%= campaign.occ_details%></td>
+                    <td><%= campaign.occ_funds%></td>
+                    <td><%= link_to "Show", campaign%> | <%= link_to "Edit", edit_campaign_path(campaign)%> | <%= link_to "Delete", campaign,method: :delete%></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>

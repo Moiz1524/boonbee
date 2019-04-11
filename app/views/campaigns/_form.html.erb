@@ -1,0 +1,30 @@
+<%= form_for(@campaign) do |f| %>
+    <table summary="Campaign form fields">
+      <tr>
+        <th>Whats the Occasion?</th>
+        <td><%= f.select(:occ_type, Campaign.occ_types.keys.to_a{ |i| [i.id]}) %></td>
+      </tr>
+      <tr>
+        <th>Occasion date</th>
+        <td><%= f.date_field(:occ_date) %></td>
+      </tr>
+      <tr>
+        <th>Details about Occasion</th>
+        <td><%= f.text_field(:occ_details) %></td>
+      </tr>
+      <tr>
+        <th>Occasions Funds</th>
+        <td><%= f.text_field(:occ_funds) %></td>
+      </tr>
+      <tr>
+        <th>Image Attachment</th>
+          <% if f.object.image.present? %>
+              <%= image_tag f.object.image.url(:small)%>
+          <% end %>
+        <td><%= f.file_field :image %></td>
+      </tr>
+     </table>
+    <div class="form-buttons">
+      <%= f.submit("Save") %>
+    </div> 
+<% end %>

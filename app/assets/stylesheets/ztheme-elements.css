@@ -14,8 +14,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-	font-size: 36.8px;
-	font-size: 2.3rem;
+	font-size: 38px;
+
 }
 
 h2 {
@@ -3445,7 +3445,7 @@ html.ie .accordion .accordion-body {
 }
 
 .nav-tabs .nav-item .nav-link {
-	color: #000 !important;
+	/*color: #000 !important;*/
 	border: 0;
 	background: transparent;
 	padding: 20.8px;
@@ -3459,13 +3459,13 @@ html.ie .accordion .accordion-body {
 
 .nav-tabs .nav-item .nav-link:after {
 	height: 4px;
-	width: 100%;
+	width: 30%;
 	content: ' ';
 	background-color: #000;
 	display: block;
 	position: absolute;
 	bottom: -4px;
-	left: 0;
+	left: 33%;
 	z-index: 10;
 	-webkit-transition: -webkit-transform 0.3s;
 	transition: -webkit-transform 0.3s;

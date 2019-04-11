@@ -36,26 +36,51 @@
                             <h3 class="text-center">Profile</h3>
                             <div class="profile-change-icon">
                               <label for="file-input">
-                                  <img id="blah" src="/avatar.png" alt="your image", class="img-fluid setting-profile-image" />
-                                 
-                                  <%= f.file_field :profile_pic,id: "file-input",class: 'imgInp d-none' %>
+                                     <img id="blah" src="<%= current_user.profile_pic %>" alt="your image", class="img-fluid setting-profile-image" />
+                                      <%= f.file_field :profile_pic,id: "file-input",class: 'imgInp d-none' %>
                                   <span class="middle text-center"><i class="fas fa-camera"></i></span>
                                 </label>  
                             </div> 
-                            <div class="form-group">
-                                <label>Name</label>
-                                <%= f.text_field :name, autofocus: true, autocomplete: "name", class: 'form-control', required: true %>
+                             <div class="form-group">
+                                <label>Bio</label>
+                                <%= f.text_field :bio, autofocus: true, autocomplete: "name", class: 'form-control', required: true %>
                             </div>
                             <div class="form-group">
-                                <label>Date of Birth</label>
-                                <input type="date" class="form-control">
+                                <label>Username</label>
+                                <%= f.text_field :username, autofocus: true, autocomplete: "name", class: 'form-control', required: true %>
                             </div>
                             <div class="form-group">
-                                <label>Gender</label>
-                                <select class="form-control">
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                </select>
+                                <label>First Name</label>
+                                <%= f.text_field :first_name, autofocus: true, autocomplete: "name", class: 'form-control', required: true %>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <%= f.text_field :last_name, autofocus: true, autocomplete: "name", class: 'form-control', required: true %>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <%= f.text_field :phone_number, autofocus: true, autocomplete: "name", class: 'form-control', required: true %>
+                            </div>
+                            <div class="form-group">
+                                <label>Birth Date</label>
+                                <%= f.date_field :birth_date, autofocus: true, required: true %>
+                                <!--<input type="date" class="form-control">-->
+                            </div>
+                            <div class="form-group">
+                                <label>Location</label>
+                                <%= f.text_field :location, autofocus: true, autocomplete: "name", class: 'form-control', required: true %>
+                            </div>
+                            <div class="form-group">
+                                <label>Twitter</label>
+                                <%= f.text_field :twitter_link, autofocus: true, autocomplete: "name", class: 'form-control', required: true %>
+                            </div>
+                            <div class="form-group">
+                                <label>Facebook</label>
+                                <%= f.text_field :facebook_link, autofocus: true, autocomplete: "name", class: 'form-control', required: true %>
+                            </div>
+                            <div class="form-group">
+                                <label>Instagram</label>
+                                <%= f.text_field :instagram_link, autofocus: true, autocomplete: "name", class: 'form-control', required: true %>
                             </div>
                               <div class="actions">
                                 <%= f.submit "Update", class: 'btn btn-primary btn-block mb-1' %>

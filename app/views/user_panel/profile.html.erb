@@ -1,0 +1,81 @@
+<div class="profile-bg mb-3">
+    <div class="profile-bg-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="row align-items-center">
+                        <div class="col-md-5 mb-3">
+                           <center> <img src="<%= current_user.profile_pic.url %>" alt="<%= current_user.name %>", class="img-fluid profile-show-image" /></center>
+                        </div>
+                        <div class="col-md-7">
+                            <h3 class="text-light center"><%= current_user.name%></h3>
+                            <p class="text-light center"><%= current_user.location%></p>
+                            <p class="text-light center"><%#= link_to "Edit Profile", edit_user_registration_path %></p>
+                            <p class="text-light center"><%= link_to "Start a new campaign", new_campaign_path %></p>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-lg-7"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-7 mx-auto mb-4">
+         <ul class="nav nav-tabs text-center profile-tabs" role="tablist">
+          <li class="nav-item font-25">
+            <a class="nav-link active profile-tabs-color" href="#profile" role="tab" data-toggle="tab" aria-selected="true">About</a>
+          </li>
+          <li class="nav-item font-25">
+            <a class="nav-link profile-tabs-color" href="#buzz" role="tab" data-toggle="tab">Contributions</a>
+          </li>
+          <li class="nav-item font-25">
+            <a class="nav-link profile-tabs-color" href="#references" role="tab" data-toggle="tab">Fundraisers</a>
+                
+          </li>
+        </ul>
+    </div>
+    <div class="col-md-9 mx-auto">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="profile">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <%= current_user.bio%>
+                            <!--<div class="profile-descriptin">-->
+                            <!--    <div class="row p-3">-->
+                            <!--       <div class="col-md-6">Phone Number</div>-->
+                                   <!--<div class="col-md-6"><%#= current_user.phone_number %></div>-->
+                            <!--</div>-->
+                            <!--<div class="profile-descriptin">-->
+                            <!--    <div class="row p-3">-->
+                            <!--       <div class="col-md-6">Birth Date</div>-->
+                                   <!--<div class="col-md-6"><%#= current_user.birth_date %></div>-->
+                            <!--    </div>-->
+                            <!--</div>-->
+                        
+                        
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+          <div role="tabpanel" class="tab-pane fade" id="buzz">
+              funder at @zeroqode- Build your app up to 10x faster without code. Use one of our no-code app templates or build from scratch using a no-code visual framework.
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="references">
+              developer at @zeroqode- Build your app up to 10x faster without code. Use one of our no-code app templates or build from scratch using a no-code visual framework.
+          </div>
+        </div>
+   </div>
+   
+</div>
+
+
+
+
+<div class="container py-4">
+    
+</div>

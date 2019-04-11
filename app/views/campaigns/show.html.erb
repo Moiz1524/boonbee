@@ -1,0 +1,28 @@
+<div class="container mt-5">
+     <%= link_to "<- Back to all campaigns", campaigns_path%>
+    <table>
+      <tr>
+        <th>Occasion?</th>
+        <td><%= @campaign.occ_type %></td>
+      </tr>
+      <tr>
+        <th>Date</th>
+        <td><%= @campaign.occ_date %></td>
+      </tr>
+      <tr>
+        <th>Details</th>
+        <td><%= @campaign.occ_details %></td>
+      </tr>
+      <tr>
+        <th>Funds Details</th>
+        <td><%= @campaign.occ_funds %></td>
+      </tr>
+      <tr>
+        <td><%= image_tag @campaign.image.url(:medium) if @campaign.image.present? %></td>
+      </tr>
+      <tr>
+        <td><%= link_to "Edit", edit_campaign_path(@campaign)%> | <%= link_to "Delete", @campaign,method: :delete%></td>
+      </tr>
+     </table>
+     
+</div>

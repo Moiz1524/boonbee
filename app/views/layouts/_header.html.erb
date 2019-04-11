@@ -1,6 +1,6 @@
-<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark header">
   <div class="container">
-  <a class="navbar-brand" href="<%= root_path %>"><h2 class="text-primary">YourAppName</h2></a>
+  <a class="navbar-brand" href="<%= root_path %>"><h2 class="text-primary">Boonbee</h2></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button> 
@@ -23,7 +23,8 @@
                <li class="nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"> <i class="fas fa-user"></i> <%= current_user.name%></a>
                 <div class="dropdown-menu bg-light">
-                  <a class="dropdown-item" href="<%= edit_user_path(current_user) %>">Profile</a>
+                  <a class="dropdown-item" href="<%= user_panel_path %>">Dashboard</a>
+                  <a class="dropdown-item" href="<%= myprofile_path %>">Profile</a>
                   <a class="dropdown-item" href="<%= edit_user_registration_path %>">Settings</a>
                   <a class="dropdown-item" href="<%= destroy_user_session_path %>" data-method="delete">
                     Log out</a>
@@ -55,7 +56,7 @@
       <div class="modal-header d-block">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title text-center" id="exampleModalLabel">Login to YourAppName</h4>
+          <h4 class="modal-title text-center" id="exampleModalLabel">Login to Boonbee</h4>
         
       </div>
       <div class="modal-body modal-login-body">
@@ -102,7 +103,7 @@
       <div class="modal-header d-block">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title text-center" id="exampleModalLabel">Join YourAppName</h4>
+          <h4 class="modal-title text-center" id="exampleModalLabel">Join Boonbee</h4>
       </div>
       <div class="modal-body modal-login-body">
         <div class="row align-items-center">
