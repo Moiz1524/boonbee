@@ -213,17 +213,102 @@ a.nav-link.profile-tabs-color {
   font-weight: 600;
 }
 .avatar {
-  background-image: url(/avatar.jpg);
   height: 36px;
   width: 36px;
   border-radius: 50%;
   background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    border: 1px solid #fff;
 }
 .font-15 {
   font-size: 15px;
 }
 .line-height-9 {
   line-height: 0.9;
+}
+.font-11 {
+  font-size: 11px;
+}
+.fund-image {
+  background-image: url(/fund.jpg);
+  background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+.fund-image-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  height: 212px;
+  
+}
+.thumb {
+    background: -webkit-linear-gradient(left, rgb(104, 202, 231) 0%, rgb(101, 219, 230) 100%);
+    padding: 5px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 12px;
+}
+.campaign-form {
+  border-top: 0 !important;
+   border-left: 0 !important;
+    border-right: 0 !important;
+}
+.campaign-avatar {
+  position: absolute;
+  bottom: 18px;
+}
+.campaign-like {
+  position: absolute;
+  top: 18px;
+  width: 85%;
+}
+.p-line-3 {
+  line-height: 1.3;
+}
+.compaign-image {
+  background: #65d9e6 !important;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.img-btn {
+  display: none !important;
+}
+.new-frm-preview img{
+  width: 100%;
+  height: 300px;
+}
+
+.new-frm-preview::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f044";
+  position: absolute;
+  right: 25px;
+  top: 10px;
+  color: #fff;
+  background: #668926;
+  padding: 5px 7px 5px 10px;
+  cursor: pointer;
+}
+.d-non{
+  display: none;
+}
+.new-frm-img {
+  background: #f5f5f5;
+  padding: 30px 10px;
+  border-radius: 4px;
+  border: 1px dotted #dad7d4;
+  cursor: pointer;
+  width: 100%;
+}
+.img-icon {
+  background: #fff;
+  border-radius: 50px;
+  padding: 25px 10px 0px 10px;
+  width: 70px;
+  height: 70px;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.17);
 }

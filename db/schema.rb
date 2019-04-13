@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2019_04_11_090544) do
     t.string "last_name", default: ""
     t.string "username", default: ""
     t.string "bio"
+    t.string "headline"
     t.date "birth_date"
     t.string "location"
     t.string "profile_pic_file_name"
@@ -56,7 +57,7 @@ ActiveRecord::Schema.define(version: 2019_04_11_090544) do
     t.string "twitter_link"
     t.string "facebook_link"
     t.string "instagram_link"
-    t.boolean "admin", default: true
+    t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

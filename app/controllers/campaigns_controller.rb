@@ -4,7 +4,11 @@ class CampaignsController < ApplicationController
     before_action :set_campaign, only: [:edit,:update,:destroy,:show]
     
     def index
-        @campaigns = current_user.campaigns
+        if current_user.admin
+            @campaigns = Campaign.all.includes(:user)
+        else
+            @campaigns = current_user.campaigns
+        end
     end
     def new
         @campaign = Campaign.new()
@@ -15,7 +19,7 @@ class CampaignsController < ApplicationController
             flash[:notice] = "Campaign created successfully!"
             redirect_to(@campaign)
         else
-            flash[:alert] = "Something went wrong"
+           flash[:alert] = "Something went wrong"
            render('new') 
         end
     end
@@ -23,7 +27,7 @@ class CampaignsController < ApplicationController
     end
     def update
         if @campaign.update(campaign_params)
-            redirect_to campaigns ,notice: "Updated Successfully."
+            redirect_to campaigns_path ,notice: "Updated Successfully."
         else
             redirect_back(fallback_location, edit_campaign_path(@campaign),alert: "Something went wrong. Please try again.")
         end

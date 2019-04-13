@@ -38,6 +38,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.string :last_name,default: ""
       t.string :username,default: ""
       t.string :bio
+      t.string :headline
       t.date :birth_date
       t.string :location
       # t.string :gender
@@ -53,7 +54,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       # t.string :other_link2
       # t.string :other_link3
       # t.text :experience
-      t.boolean :admin,default: :false
+      t.boolean :admin, default: false
       # t.boolean :admin, default: false
 
       t.timestamps null: false

@@ -8,7 +8,7 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
       t.string "occ_details"
       t.string "occ_funds"
       
-      t.timestamps
+      t.timestamps 
     end
   end
   

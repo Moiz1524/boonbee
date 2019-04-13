@@ -7,9 +7,9 @@
                         <h2 class="text-dark mt-1 text-center"> Admin </h2>
                         <div class="row">
                           <div class="col-12">
+                            
                              <a class="btn btn-primary btn-block mt-1" href="#">Users</a>
-                             <a class="btn btn-primary btn-block mt-1" href="#">Categories</a>
-                             <a class="btn btn-primary btn-block mt-1" href="#">Facilities</a>
+                             <a class="btn btn-primary btn-block mt-1" href="<%= campaigns_path %> ">Campaigns</a>
                           </div>
                         </div>    
                     </div>
@@ -24,13 +24,13 @@
                       <div class="col-md-4 mb-2">
                         <div class="card p-2 text-center">
                           <p>Total Users</p>
-                          <h3>40</h3>
+                          <h3><%= User.all.size %></h3>
                         </div>
                       </div>
                       <div class="col-md-4 mb-2">
                         <div class="card p-2 text-center">
-                          <p>Total Users</p>
-                          <h3>40</h3>
+                          <p>Total Campaigns</p>
+                          <h3><%= Campaign.all.size %></h3>
                         </div>
                       </div>
                       <div class="col-md-4 mb-2">
@@ -64,20 +64,23 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                  <h3 class="mb-3">All Users</h3>
+                <h3 class="mb-3">All Users</h3>
                   <table class="table table-bordered">
-                    <tbody><tr>
-                      <th>Name</th>
-                       <th>Email</th>
-                       <th>Phone Number</th>
-                    </tr>
-                        <tr>
-                          <td>mauzz</td>
-                          <td>maueezahmed@gmail.com</td>
-                          <td>123445</td>
-                        </tr>
-                       
-                  </tbody></table>
+                    <tbody>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                      </tr>
+                    <% User.all.each do |u| %>
+                      <tr>
+                        <td><%= u.name %></td>
+                        <td><%= u.email %></td>
+                        <td><%= u.phone_number %></td>
+                      </tr>
+                    <% end %>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

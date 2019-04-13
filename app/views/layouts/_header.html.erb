@@ -10,38 +10,30 @@
                 <a class="nav-link" href="<%= root_path %>"><i class="fas fa-home"></i> Home<span class="sr-only">(current)</span></a>
               </li>
       
-        <% if !user_signed_in? %>
-           <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal"><i class="fas fa-sign-in-alt"></i> Sign in</a>
-          </li> 
-           <li class="nav-item">
-              <a class="nav-link" href="<%= new_user_registration_path%>" data-toggle="modal" data-target="#signupModal"><i class="fas fa-user-plus"></i> Sign Up</a>
-          </li> 
-        <% else %>
+        <% if user_signed_in? %>
       
-             <div class="dropdown">
+           <div class="dropdown">
                <li class="nav-item">
-                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"> <i class="fas fa-user"></i> <%= current_user.name%></a>
+                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><%= current_user.username %></a>
                 <div class="dropdown-menu bg-light">
                   <a class="dropdown-item" href="<%= user_panel_path %>">Dashboard</a>
                   <a class="dropdown-item" href="<%= myprofile_path %>">Profile</a>
+                  <% if current_user.admin %>
+                    <a class="dropdown-item" href="<%= admin_panel_path %>">Admin Dashboard</a>
+                  <% end %>
                   <a class="dropdown-item" href="<%= edit_user_registration_path %>">Settings</a>
-                  <a class="dropdown-item" href="<%= destroy_user_session_path %>" data-method="delete">
-                    Log out</a>
+                  <a class="dropdown-item" href="<%= destroy_user_session_path %>" data-method="delete">Log out</a>
                 </div>
                 </li>
-              </div>
-          
-          <% if current_user.admin %>
+            </div>
+          <% else %>
             <li class="nav-item">
-              <a class="nav-link" href="<%= admin_panel_path %>">Admin Dashboard</a>
-            </li>
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal"><i class="fas fa-sign-in-alt"></i> Sign in</a>
+            </li> 
             <li class="nav-item">
-              <a class="nav-link" href="<%= destroy_user_session_path %>" data-method="delete">Log Out</a>
-            </li>
+              <a class="nav-link" href="<%= new_user_registration_path%>" data-toggle="modal" data-target="#signupModal"><i class="fas fa-user-plus"></i> Sign Up</a>
+            </li> 
           <% end %>
-          
-        <% end %>
       </ul>
       
     </div>
@@ -121,7 +113,7 @@
             </div>
             <div class="col-md-6 b-left">
           <%= form_for(:user, :url => registration_path(:user)) do |f| %>
-              <%= f.text_field :name,autocomplete: "false",required: true, autofocus: true, class: "form-control login-form mb-2", placeholder: "Enter Your Name", id: "join_name" %>
+              <%= f.text_field :username,autocomplete: "false",required: true, autofocus: true, class: "form-control login-form mb-2", placeholder: "Enter Your Name", id: "join_name" %>
               <%= f.email_field :email,autocomplete: :email,required: true, autofocus: true, class: "form-control login-form mb-2", placeholder: "Enter Your Email", id: "join_name" %>
               <%= f.password_field :password,required: true, autofocus: true, class: "form-control login-form mb-2", placeholder: "Enter Your Password", id: "join_name" %>
               <%= f.password_field :password_confirmation,required: true, class: "form-control login-form mb-2", placeholder: "Enter Your Password Again", id: "join_name" %>

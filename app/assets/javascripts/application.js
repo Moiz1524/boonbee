@@ -19,3 +19,27 @@
 $(document).ready(function() {
    $('.alert').delay(2000).fadeOut();
 });
+$(function() {
+  // Multiple images preview in browser
+  var imagesPreview = function(input, placeToInsertImagePreview) {
+    if (input.files) {
+      var filesAmount = input.files.length;
+      for (i = 0; i < filesAmount; i++) {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+          $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+        }
+        reader.readAsDataURL(input.files[i]);
+      }
+    }
+  };
+  $('#campaign_image').on('change', function() {
+    if ($('#campaign_image').val() != "") {
+      $('.new-frm-preview img').hide();
+    }
+    $('.new-frm-preview').show();
+    imagesPreview(this, '.new-frm-preview');
+    $('.new-frm-img').hide();
+    $('.new-frm-preview').addClass('p-0');
+  });
+});
