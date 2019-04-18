@@ -1,5 +1,7 @@
-<div class="container mt-5">
+<div class="container py-5">
   <h3>Editing a campaign</h3>
-  <%= render "form"%>
-  
+  <%= form_for(@campaign) do |f| %>
+    <%= render(:partial => 'form', :locals => {:f => f})%>
+      <%= f.submit('Update Campaign', {class: 'btn btn-primary'}) %>
+  <% end %>
 </div>

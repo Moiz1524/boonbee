@@ -1,32 +1,69 @@
-<div class="container-fluid py-4 bg-light">
-    <div class="container">
-        <% if @campaigns != [] %>
-            <table class="table table-bordered">
-                    <tr>
-                        <th>Creator</th>
-                        <th>Occasion</th>
-                        <th>Date</th>
-                        <th>Details</th>
-                        <th>Funds</th>
-                        <th>Actions</th>
-                    </tr>
-                
-                
-                    <% @campaigns.each do |campaign|%>
-                        <tr>
-                            <td><%= campaign.user.username %></td>
-                            <td><%= campaign.occ_type %></td>
-                            <td><%= campaign.occ_date %></td>
-                            <td><%= campaign.occ_details %></td>
-                            <td><%= campaign.occ_funds %></td>
-                            <td><%= link_to "Show", campaign%> | <%= link_to "Edit", edit_campaign_path(campaign)%> | <%= link_to "Delete", campaign,method: :delete%></td>
-                        </tr>
-                    <% end %>
-            </table>
+<%# @campaigns.each do |c| %>
+    <%#= c.user.username %>      
+<%# end %>
+<!--To display sphinx results-->
+
+    <div class="container py-3">
+        <h1>All Campaigns</h1>
+        
+        <% if @campaigns %>
+        <%= form_tag campaigns_path, method: :get do %>
+            <div class="field">
+                <%= text_field_tag :search, params[:search] %>
+                <%= submit_tag "Search" %>
+            </div>
+        <% end %>
+              
+         <% @campaigns.each do |c| %>
+            <div class="card my-3">
+             <div class="row">
+                 <div class="col-lg-5 col-xl-4 col-md-12">
+                     <div class="fund-image" style="background-image:url('<%= c.image.url %>')">
+                         <div class="fund-image-overlay px-2">
+                             <div class="campaign-like">
+                                 <div class="row">
+                                     <div class="col-9">
+                                         <span class="text-light"> <i class="far fa-clock"></i> Ended <%= c.updated_at.strftime('%B, %y') %></span>
+                                     </div>
+                                     <div class="col-3 text-right">
+                                           <span class="text-light">1 <i class="far fa-heart"></i></span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="campaign-avatar">
+                                 <div class="d-inline-flex">
+                                         <div class="avatar mr-2" style="background-image:url('<%= c.user.profile_pic.url %>')">
+                                         </div>
+                                         <div class="ml-1 mt-2">
+                                             <p class="text-light mb-0 line-height-9"><%= c.user.username %></p>
+                                          <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i> <%= c.user.location %></p>
+                                         </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-lg-7 col-xl-8 col-md-12">
+                     <div class="p-2">
+                         <span class="text-dark"><%= c.name %></span> <span class="small"><%= time_ago_in_words(c.updated_at) %> ago</span>
+                         <p class="p-line-3 my-2"><%= c.occ_details.truncate(300) %></p>
+                         <div class="my-2">
+                             <div class="progress">
+                                 <div class="progress-bar bg-success" style="width:20%"></div>
+                            </div><br>
+                            <small><%#= c.occ_funds %> </small>
+                         </div>
+                         <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
+                     </div>
+                 </div>
+             </div>
+             </div>
+         <% end %>
+     
         <% else %>
-            <p>You have no campaigns raised!.</p>
+            <!--<p>You have no campaigns raised!.</p>-->
         <% end %>
     </div>
-</div>
+
    
 

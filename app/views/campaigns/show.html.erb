@@ -1,28 +1,48 @@
-<div class="container mt-5">
-     <%= link_to "<- Back to all campaigns", campaigns_path%>
-    <table>
-      <tr>
-        <td><%= image_tag @campaign.image.url(:small) if @campaign.image.present? %></td>
-      </tr>
-      <tr>
-        <th>Occasion?</th>
-        <td><%= @campaign.occ_type %></td>
-      </tr>
-      <tr>
-        <th>Date</th>
-        <td><%= @campaign.occ_date %></td>
-      </tr>
-      <tr>
-        <th>Details</th>
-        <td><%= @campaign.occ_details %></td>
-      </tr>
-      <tr>
-        <th>Funds Details</th>
-        <td><%= @campaign.occ_funds %></td>
-      </tr>
-      <tr>
-        <td><%= link_to "Edit", edit_campaign_path(@campaign)%> | <%= link_to "Delete", @campaign,method: :delete%></td>
-      </tr>
-     </table>
-     
+<div class="container py-5">
+  <div class="card">
+             <div class="row">
+                 <div class="col-lg-5">
+                     <div class="fund-image" style="background-image:url('<%= @campaign.image.url %>')">
+                         <div class="fund-image-overlay px-2">
+                             <div class="campaign-like">
+                                 <div class="row">
+                                     <div class="col-9">
+                                         <span class="text-light"> <i class="far fa-clock"></i> Ended <%= @campaign.updated_at.strftime('%B, %y') %></span>
+                                     </div>
+                                     <div class="col-3 text-right">
+                                           <span class="text-light">1 <i class="far fa-heart"></i></span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="campaign-avatar">
+                                 <div class="d-inline-flex">
+                                     <div class="avatar mr-2" style="background-image:url('<%= @campaign.user.profile_pic.url %>')">
+                                      </div>
+                                      <div class="ml-1 mt-2">
+                                              <p class="text-light mb-0 line-height-9"><%= @campaign.user.username %></p>
+                                          <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i> <%= @campaign.user.location %></p>
+                                      </div>
+                                    
+                                 </div>
+                             </div>
+                            
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-lg-7">
+                     <div class="p-2">
+                         <span class="text-dark"><%= @campaign.name %></span>
+                         <span class="small"><%= time_ago_in_words(@campaign.updated_at) %> ago</span>
+                         <p class="p-line-3 my-2"><%= @campaign.occ_details %></p>
+                         <div class="my-2">
+                         <div class="progress">
+                             <div class="progress-bar bg-success" style="width:20%"></div>
+                            </div><br>
+                            <small><%#= @campaign.occ_funds %></small>
+                          </div>
+                         <a class="badge badge-pill badge-primary"><%= @campaign.occ_type %></a>
+                     </div>
+                 </div>
+             </div>
+         </div>
 </div>

@@ -3,14 +3,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5">
-                    <div class="row align-items-center">
+                    <div class="row">
                         <div class="col-md-5 mb-3">
                            <center> <img src="<%= current_user.profile_pic.url %>" alt="<%= current_user.name %>", class="img-fluid profile-show-image" /></center>
+                           <center><%= link_to "Edit Profile", edit_user_registration_path, class: 'btn btn-primary mt-3' %></center>
                         </div>
-                        <div class="col-md-7">
-                            <h3 class="text-light center"><%= current_user.username %></h3>
-                            <p class="text-light center mb-2"><%= current_user.location%></p>
-                            <%#= link_to "Edit Profile", edit_user_registration_path %>
+                        <div class="col-md-7 mt-4">
+                            <h3 class="text-light center mb-0"><%= current_user.username %></h3>
+                            <p class="text-light center mb-2 small"> <i class="fas fa-map-marker-alt"></i> <%= ( current_user.location  if current_user.location.present? ) || "Your location"%></p>
                             <%= link_to "Start a new campaign", new_campaign_path, class: "btn btn-primary" %>
                         </div>
                     </div>
@@ -22,86 +22,95 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container py-4">
     <div class="col-md-7 mx-auto mb-4">
          <ul class="nav nav-tabs text-center profile-tabs" role="tablist">
           <li class="nav-item font-25">
-            <a class="nav-link active profile-tabs-color" href="#profile" role="tab" data-toggle="tab" aria-selected="true">About</a>
+            <a class="nav-link active profile-tabs-color" href="#about" role="tab" data-toggle="tab" aria-selected="true">About</a>
           </li>
           <li class="nav-item font-25">
-            <a class="nav-link profile-tabs-color" href="#buzz" role="tab" data-toggle="tab">Contributions</a>
+            <a class="nav-link profile-tabs-color" href="#contributors" role="tab" data-toggle="tab">Contributions</a>
           </li>
           <li class="nav-item font-25">
-            <a class="nav-link profile-tabs-color" href="#references" role="tab" data-toggle="tab">Campaigns</a>
+            <a class="nav-link profile-tabs-color" href="#campaign" role="tab" data-toggle="tab">Campaigns</a>
           </li>
         </ul>
     </div>
     <div class="col-md-9 mx-auto">
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="profile">
+            <div role="tabpanel" class="tab-pane active" id="about">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
-                            <%= current_user.bio %>
-                            <!--<div class="profile-descriptin">-->
-                            <!--    <div class="row p-3">-->
-                            <!--       <div class="col-md-6">Phone Number</div>-->
-                                   <!--<div class="col-md-6"><%#= current_user.phone_number %></div>-->
-                            <!--</div>-->
-                            <!--<div class="profile-descriptin">-->
-                            <!--    <div class="row p-3">-->
-                            <!--       <div class="col-md-6">Birth Date</div>-->
-                                   <!--<div class="col-md-6"><%#= current_user.birth_date %></div>-->
-                            <!--    </div>-->
-                            <!--</div>-->
-                        
-                        
-                        </div>
+                        <%= current_user.bio %>
                     </div>
                     
                 </div>
             </div>
-          <div role="tabpanel" class="tab-pane fade" id="buzz">
+          <div role="tabpanel" class="tab-pane fade" id="contributors">
               funder at @zeroqode- Build your app up to 10x faster without code. Use one of our no-code app templates or build from scratch using a no-code visual framework.
           </div>
-          <div role="tabpanel" class="tab-pane fade" id="references">
-              <div class="container-fluid py-4 bg-light">
-                <div class="container">
+          <div role="tabpanel" class="tab-pane fade" id="campaign">
                     <% if current_user.campaigns != [] %>
-                        <table class="table table-bordered">
-                        
-                            <tr>
-                                <th>Occasion</th>
-                                <th>Date</th>
-                                <th>Details</th>
-                                <th>Funds</th>
-                                <th>Actions</th>
-                            </tr>
-                        
-                        
-                            <% current_user.campaigns.each do |campaign|%>
-                                <tr>
-                                    <td><%= campaign.occ_type %></td>
-                                    <td><%= campaign.occ_date %></td>
-                                    <td><%= campaign.occ_details %></td>
-                                    <td><%= campaign.occ_funds %></td>
-                                    <td><%= link_to "Show", campaign%> | <%= link_to "Edit", edit_campaign_path(campaign)%> | <%= link_to "Delete", campaign,method: :delete %></td>
-                                </tr>
-                            <% end %>
-                        </table>
+                         <% current_user.campaigns.all.order("created_at DESC").each do |c| %>
+                         <div class="card my-3">
+                             <div class="row">
+                                 <div class="col-lg-5 col-xl-4 col-md-12">
+                                     <div class="fund-image" style="background-image:url('<%= c.image.url %>')">
+                                         <div class="fund-image-overlay px-2">
+                                             <div class="campaign-like">
+                                                 <div class="row">
+                                                     <div class="col-9">
+                                                         <span class="text-light"> <i class="far fa-clock"></i> End 6 month ago</span>
+                                                     </div>
+                                                     <div class="col-3 text-right">
+                                                           <span class="text-light">1 <i class="far fa-heart"></i></span>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                             <div class="campaign-avatar">
+                                                 <div class="d-inline-flex">
+                                                         <div class="avatar mr-2" style="background-image:url('<%= c.user.profile_pic.url %>')">
+                                                         </div>
+                                                         <div class="ml-1 mt-2">
+                                                             <p class="text-light mb-0 line-height-9"><%= c.user.username %></p>
+                                                          <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i> <%= c.user.location %></p>
+                                                         </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-lg-7 col-xl-8 col-md-12">
+                                     <div class="p-2">
+                                         <span class="text-dark"><%= c.name %></span> <span class="small">a year ago</span>
+                                         <p class="p-line-3 my-2"><%= c.occ_details.truncate(200) %></p>
+                                         <div class="my-2">
+                                             <div class="progress">
+                                                 <div class="progress-bar bg-success" style="width:20%"></div>
+                                            </div><br>
+                                            <small></small>
+                                         </div>
+                                         <div class="row align-items-center">
+                                             <div class="col-7">
+                                                 <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
+                                             </div>
+                                             <div class="col-5">
+                                                 <%= link_to "Edit", edit_campaign_path(c), class: "btn btn-primary" %>
+                                                 <%= link_to 'show',campaign_path(c), class: 'btn btn-primary'%>
+                                                 
+                                                 <%= link_to 'Delete', c, method: :delete, class:'btn btn-primary', data: { confirm: 'Are you sure?' } %>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             </div>
+                     <% end %>
+     
                     <% else %>
                         <p>You have no campaigns raised!.</p>
                     <% end %>
-                  </div>
-               </div>
             </div>
          </div>
      </div>
-</div>
-
-
-
-
-<div class="container py-4">
-    
 </div>

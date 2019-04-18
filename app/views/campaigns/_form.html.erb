@@ -1,6 +1,26 @@
+<% if !@campaign.errors.empty? %>
+    <div id="error-explanation">
+        <h2><%= pluralize(@campaign.errors.size, "error") %>prohibited this record from being saved</h2>
+        <p>There were problems with the following fields:</p>
+        <ul>
+            <% @campaign.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
 
-<%= form_for(@campaign) do |f| %>
-<%#= error_messages_for(f.object) %>
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Enter a Name!</h4>
+            <small>Select the category of occasion  class adds borders on all sides of the table and the cells</small>
+        </div>
+        <div class="col-md-8">
+             <label class="mb-0">Enter a Name!</label>
+           <%= f.text_field(:name,  {class: 'form-control'}) %>
+        </div>
+    </div>
+    <hr>
     <div class="row">
         <div class="col-md-4">
             <h4>Whats the Occasion?</h4>
@@ -32,18 +52,7 @@
             <label class="mb-0">Details about Occasion</label>
              <%= f.text_area(:occ_details, {class: "form-control", placeholder: "Details about occasion" }) %>
         </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-md-4">
-            <h4>Occasions Funds</h4>
-             <small>Select the category of occasion  class adds borders on all sides of the table and the cells</small>
-        </div>
-        <div class="col-md-8">
-            <label class="mb-0">Occasions Funds</label>
-            <%= f.text_field(:occ_funds, {class: 'form-control', placeholder: "Occasion Funds" }) %>
-        </div>
-    </div>
+</div>
     <hr>
     <div class="row">
         <div class="col-md-4">
@@ -51,45 +60,28 @@
              <small>Select the category of occasion  class adds borders on all sides of the table and the cells</small>
         </div>
         <div class="col-md-8">
-            <div class="gallery"></div>
-                <% if f.object.image.present? %>
-                    <label for="campaign_image" class="new-frm-img">
-                        <div class="fas fa-image mb-3">
-                           <%= image_tag f.object.image.url(:small)%>
-                           <%= f.file_field :image %>
-                        </div>
-                    </label>
-                <% else %>    
-                      <div class="label_preview">
-                        <center><div class="img-icon"><i class="fas fa-image mb-3"></i></div></center>
-                        <center><small class="text-center">Upload an image here, or select a file.</small></center>
-                        <center><small class="text-muted">It must be a JPG, PNG, GIF, or JPEG.</small></center>
-                        <center><small style="color:red;">Image is Required</small></center>
-                        <%= f.file_field :image %>
-                      </div>
-                  <% end %>
-                </label>
-                <label for="campaign_image">
-                  <div class="new-frm-preview d-non"></div>
-                </label>
-                <div class="img-btn">
-                  <!--<input type="file" id="campaign_image">-->
-                </div>
+            
+             <div class="profile-change-icon">
+                              <label for="file-input">
+                                     <img id="blah" src="/n-image.png" alt="your image" class="setting-profile-image" width="200px" height="200px" />
+                                      <%= f.file_field :image, id: 'file-input', class: 'imgInp d-none' %>
+                                  <span class="middle text-center"><i class="fas fa-camera"></i></span>
+                                </label>  
+            </div> 
+            
+            
+            
+                <%# if f.object.image.present? %>
+                   <%#= image_tag f.object.image.url(:small)%>
+                   <%#= f.file_field :image %>
+                <%# else %>    
+                   <%#= f.file_field :image %>
+                <%# end %>
+               
+                
         </div>
     </div>
-  
-       <%# if f.object.image.present? %>
-              <%#= image_tag f.object.image.url(:small)%>
-        <%# end %>
-          <%#= f.file_field :image, class: 'form-control campaign-form' %>
-          
-         
-              
-          <!--<input type="file" id="campaign_image">-->
     
-      <%= f.submit('Create Campaign', {class: 'btn btn-primary'}) %>
-    
-<% end %>
 
 
 
@@ -115,4 +107,9 @@
 $(".imgInp").change(function(){
     readURL(this);
 });
+
+
+
+
+
 </script>

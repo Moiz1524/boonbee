@@ -5,9 +5,17 @@ class CampaignsController < ApplicationController
     
     def index
         if current_user.admin
-            @campaigns = Campaign.all.includes(:user)
+            if params[:search].present?
+                @campaigns = Campaign.joins(:user).where("campaigns.name ILIKE ? OR users.username ILIKE?","%#{params[:search]}%", "%#{params[:search]}%")
+            else
+                @campaigns = Campaign.all.includes(:user)
+                # @campaigns = Campaign.search(params[:search])
+            end
         else
             @campaigns = current_user.campaigns
+            if params[:search].present?
+                @campaigns = Campaign.joins(:user).where("campaigns.name ILIKE ? OR users.username ILIKE?","%#{params[:search]}%", "%#{params[:search]}%")
+            end
         end
     end
     def new
@@ -15,7 +23,7 @@ class CampaignsController < ApplicationController
     end
     def create
         @campaign = current_user.campaigns.new(campaign_params)
-        if @campaign.save!
+        if @campaign.save
             flash[:notice] = "Campaign created successfully!"
             redirect_to(@campaign)
         else
@@ -27,7 +35,7 @@ class CampaignsController < ApplicationController
     end
     def update
         if @campaign.update(campaign_params)
-            redirect_to campaigns_path ,notice: "Updated Successfully."
+            redirect_to campaign_path(@campaign) ,notice: "Updated Successfully."
         else
             redirect_back(fallback_location, edit_campaign_path(@campaign),alert: "Something went wrong. Please try again.")
         end
@@ -48,6 +56,6 @@ class CampaignsController < ApplicationController
     end
     
     def campaign_params
-        params.require(:campaign).permit(:occ_type, :occ_date, :image, :user_id, :occ_details, :occ_funds)
+        params.require(:campaign).permit(:name, :occ_type, :occ_date, :image, :user_id, :occ_details, :occ_funds)
     end
 end

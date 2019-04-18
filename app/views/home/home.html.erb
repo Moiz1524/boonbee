@@ -149,7 +149,8 @@
                     </div>
                     <div class="row my-2">
                         <div class="col-9">
-                            <div class="row align-items-center">
+                            <div class="row a
+                            lign-items-center">
                                 <div class="col-2 pr-1">
                                     <div class="avatar"></div>
                                 </div>
@@ -179,12 +180,7 @@
                             <p class="mb-0 line-height-9"><span class="text-dark">0</span> <span class="small">Votes</span></p>
                             <span class="small">a month ago</span>
                         </div>
-                         
                     </div>
-                
-                
-                    
-                   
                 </div>
             </div>
             <div class="col-lg-6">
@@ -346,12 +342,7 @@
                             <p class="mb-1 line-height-9">4</p>
                             <p class="mb-0 line-height-9 font-11">Contributions</p>
                         </div>
-                         
                     </div>
-                
-                
-                    
-                   
                 </div>
             </div>
              
@@ -360,58 +351,51 @@
 </div>
  </div>
  <div class="container-fluid bg-light py-5">
-     <div class="col-md-8 mx-auto">
-         <% Campaign.all.includes(:user).each do |c| %>
-         <div class="card my-3">
+     <div class="container">
+         <% Campaign.all.order("created_at DESC").includes(:user).each do |c| %>
+            <div class="card my-3">
              <div class="row">
-                 <div class="col-lg-4">
+                 <div class="col-lg-5 col-xl-4 col-md-12">
                      <div class="fund-image" style="background-image:url('<%= c.image.url %>')">
                          <div class="fund-image-overlay px-2">
                              <div class="campaign-like">
                                  <div class="row">
                                      <div class="col-9">
-                                         <span class="text-light"> <i class="far fa-clock"></i> End 6 month ago</span>
+                                         <span class="text-light"> <i class="far fa-clock"></i> Ended <%= c.updated_at.strftime('%B, %y') %></span>
                                      </div>
-                                     <div class="col-3 ">
+                                     <div class="col-3 text-right">
                                            <span class="text-light">1 <i class="far fa-heart"></i></span>
                                      </div>
                                  </div>
-                                          
-                                        
                              </div>
                              <div class="campaign-avatar">
-                                 <div class="row">
-                                     <div class="col-3">
-                                         <div class="avatar" style="background-image:url('<%= c.user.profile_pic.url %>')"></div>
-                                     </div>
-                                     <div class="col-9">
-                                          <p class="text-light mb-0 line-height-9"><%= c.user.username %></p>
+                                 <div class="d-inline-flex">
+                                         <div class="avatar mr-2" style="background-image:url('<%= c.user.profile_pic.url %>')">
+                                         </div>
+                                         <div class="ml-1 mt-2">
+                                             <p class="text-light mb-0 line-height-9"><%= c.user.username %></p>
                                           <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i> <%= c.user.location %></p>
+                                         </div>
                                      </div>
                                  </div>
-                                 
                              </div>
-                            
                          </div>
                      </div>
-                 </div>
-                 <div class="col-lg-8">
+                 <div class="col-lg-7 col-xl-8 col-md-12">
                      <div class="p-2">
-                         <span class="text-dark"><%= c.occ_type %></span> <span class="small">a year ago</span>
-                         <p class="p-line-3 my-2"><%= c.user.bio %></p>
+                         <span class="text-dark"><%= c.name %></span> <span class="small"><%= time_ago_in_words(c.updated_at)  %> ago</span>
+                         <p class="p-line-3 my-2"><%= c.occ_details.truncate(300) %></p>
                          <div class="my-2">
-                         <div class="progress">
-                             <div class="progress-bar bg-success" style="width:20%"></div>
-                            </div>
-                            <small>$110 raised</small>
-                          </div>
-                         <a class="badge badge-pill badge-primary">art festival</a>
+                             <div class="progress">
+                                 <div class="progress-bar bg-success" style="width:20%"></div>
+                            </div><br>
+                            <small></small>
+                         </div>
+                         <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
                      </div>
-                     
                  </div>
+                </div>
              </div>
-         </div>
-          
          <% end %>
      </div>
  </div>
