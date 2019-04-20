@@ -82,7 +82,7 @@
                                  </div>
                                  <div class="col-lg-7 col-xl-8 col-md-12">
                                      <div class="p-2">
-                                         <span class="text-dark"><%= c.name %></span> <span class="small">a year ago</span>
+                                         <span class="text-dark"><%= c.name %></span> <span class="small"><%= time_ago_in_words(c.updated_at) %></span>
                                          <p class="p-line-3 my-2"><%= c.occ_details.truncate(200) %></p>
                                          <div class="my-2">
                                              <div class="progress">
