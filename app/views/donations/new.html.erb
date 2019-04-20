@@ -1,0 +1,22 @@
+<% if flash[:error].present? %>
+  <div id="error_explanation">
+    <p><%= flash[:error] %></p>
+  </div>
+<% end %>
+
+<%= form_for @donation do |f| %>
+    <%= f.number_field :amount %>
+    <%= f.hidden_field :user_id, { :value => current_user.id } %>
+    <%= f.hidden_field :campaign_id, { :value => params[:campaign_id] }%>
+<% end %>
+
+
+
+
+
+
+<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="A month's subscription"
+          data-amount="500"
+          data-locale="auto"></script>

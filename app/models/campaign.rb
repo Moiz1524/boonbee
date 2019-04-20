@@ -1,5 +1,6 @@
 class Campaign < ApplicationRecord
     belongs_to :user
+    has_many :donations
     
     enum occ_type: [:festival, :birthday, :funeral]
     

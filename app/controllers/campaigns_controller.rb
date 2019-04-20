@@ -12,7 +12,7 @@ class CampaignsController < ApplicationController
                 # @campaigns = Campaign.search(params[:search])
             end
         else
-            @campaigns = current_user.campaigns
+            @campaigns = Campaign.all.includes(:user)
             if params[:search].present?
                 @campaigns = Campaign.joins(:user).where("campaigns.name ILIKE ? OR users.username ILIKE?","%#{params[:search]}%", "%#{params[:search]}%")
             end

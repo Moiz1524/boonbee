@@ -48,6 +48,7 @@
                          <span class="text-dark"><%= c.name %></span> <span class="small"><%= time_ago_in_words(c.updated_at) %> ago</span>
                          <p class="p-line-3 my-2"><%= c.occ_details.truncate(300) %></p>
                          <div class="my-2">
+                             <%#= link_to("Donate", new_donation_path(:campaign_id => c.id )) %>
                              <div class="progress">
                                  <div class="progress-bar bg-success" style="width:20%"></div>
                             </div><br>

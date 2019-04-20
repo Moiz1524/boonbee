@@ -11,5 +11,7 @@ Rails.application.routes.draw do
   resources :users
   
   resources :campaigns
+  
+  resources :donations
 
 end
