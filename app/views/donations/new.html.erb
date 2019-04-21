@@ -8,6 +8,7 @@
     <%= f.number_field :amount %>
     <%= f.hidden_field :user_id, { :value => current_user.id } %>
     <%= f.hidden_field :campaign_id, { :value => params[:campaign_id] }%>
+    <%= f.submit %>
 <% end %>
 
 
