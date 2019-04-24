@@ -6,10 +6,10 @@ class DonationsController < ApplicationController
     end
     
     def create
-        
-        @donation = Donation.new(donation_params)
+        @donation = current_user.donations.new(donation_params)
+        @donation.amount = @donation.amount * 100
         @amount = @donation.amount
-            
+    
         customer = Stripe::Customer.create({
             email: current_user.email,
             source: params[:stripeToken],
@@ -21,14 +21,17 @@ class DonationsController < ApplicationController
             description: 'Boonbee Stripe customer',
             currency: 'usd',
          })
-         
-         if @donation.save!
-             redirect_to(campaigns_path)
-         end
-    
+        
+        @donation.save!
+             
         rescue Stripe::CardError => e
         flash[:error] = e.message
         redirect_to new_donation_path
+           
+    end
+    
+    def payment
+        
     end
     
     def donation_params

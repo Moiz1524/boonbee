@@ -9,16 +9,11 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//
-//= require rails-ujs
-//= require jquery
+//= require jquery 
+//= require jquery_ujs 
 //= require sweetalert
-//= require turbolinks
 //= require_tree .
 
-$(document).ready(function() {
-   $('.alert').delay(2000).fadeOut();
-});
 $(function() {
   // Multiple images preview in browser
   var imagesPreview = function(input, placeToInsertImagePreview) {
