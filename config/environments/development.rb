@@ -1,6 +1,6 @@
 Rails.application.configure do
   Bullet.enable = true # for N+1 queries
-  Bullet.alert = true
+  # Bullet.alert = true
   Bullet.bullet_logger = true
   config.cache_classes = false
   config.eager_load = false

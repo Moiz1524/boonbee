@@ -8,12 +8,13 @@
     <%= f.hidden_field :user_id, { :value => current_user.id } %>
     <%= f.hidden_field :campaign_id, { :value => params[:campaign_id] }%>
     <div class="field">
+      <%= f.label "Enter amount in dollars:" %><br>
       <%= f.number_field :amount %>  
     </div>
     <div class="actions">
       <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="A month's subscription"
+          data-description="Contribute to this campaign"
           data-amount="500"
           data-locale="auto"></script>
     </div>

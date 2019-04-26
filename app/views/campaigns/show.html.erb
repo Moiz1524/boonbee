@@ -35,6 +35,9 @@
                          <span class="small"><%= time_ago_in_words(@campaign.updated_at) %> ago</span>
                          <p class="p-line-3 my-2"><%= @campaign.occ_details %></p>
                          <div class="my-2">
+                             <% if @campaign.user.id != current_user.id %>
+                                 <%= link_to("Donate", new_donation_path(:campaign_id => @campaign.id )) %>
+                             <% end %>
                          <div class="progress">
                              <div class="progress-bar bg-success" style="width:20%"></div>
                             </div><br>

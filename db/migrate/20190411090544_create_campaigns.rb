@@ -1,5 +1,5 @@
 class CreateCampaigns < ActiveRecord::Migration[5.2]
-  def up 
+  def up  
     create_table :campaigns do |t|
       t.string "name"
       t.integer "occ_type"

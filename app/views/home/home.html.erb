@@ -371,7 +371,7 @@
                      </div>
                  <div class="col-lg-7 col-xl-8 col-md-12">
                      <div class="p-2">
-                         <span class="text-dark"><%= c.name %></span> <span class="small"><%= time_ago_in_words(c.updated_at)  %> ago</span>
+                         <span class="text-dark"><%= link_to(c.name, campaign_path(c)) %></span> <span class="small"><%= time_ago_in_words(c.updated_at)  %> ago</span>
                          <p class="p-line-3 my-2"><%= c.occ_details.truncate(300) %></p>
                          <div class="my-2">
                              <div class="progress">
@@ -380,6 +380,11 @@
                             <small></small>
                          </div>
                          <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
+                         <% if current_user %>
+                             <% if c.user.id != current_user.id %>
+                                 <%= link_to("Donate", new_donation_path(:campaign_id => c.id), class: "badge badge-pill badge-primary") %>
+                             <% end %>
+                        <% end %>
                      </div>
                  </div>
                 </div>
