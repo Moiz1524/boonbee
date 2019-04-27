@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   get '/invoices/:id', to: 'user_panel#view_invoice', as: :view_invoice
   resources :users
   
-  resources :campaigns
+  resources :campaigns 
+  
+  get 'campaigns/:id/campaign_funds', to: 'campaigns#campaign_funds', as: :campaign_funds
   
   resources :donations
 

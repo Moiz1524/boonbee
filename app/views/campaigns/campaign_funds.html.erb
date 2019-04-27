@@ -1,0 +1,18 @@
+<div class="container">
+  <br><h3>All Payments</h3>
+  <p>Net Amount: <%= @funds_total %>$</p>
+  <table>
+    <tr>
+      <th>Receiving Date</th>
+      <th>Payment</th>
+      <th>Paid by</th>
+    </tr>
+    <% @funds.each do |f| %>
+        <tr>
+          <td><%= f.updated_at.strftime('%B %e ,%Y') %></td>
+          <td><%= f.amount %> $</td>
+          <td><%= f.user.username %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>

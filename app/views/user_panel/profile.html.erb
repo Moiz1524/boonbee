@@ -106,11 +106,11 @@
                              <div class="row align-items-center">
                                  <div class="col-7">
                                      <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
+                                     <%= link_to("Received Payments", campaign_funds_path(c), class: 'badge badge-pill badge-primary') %>
                                  </div>
                                  <div class="col-5">
                                      <%= link_to "Edit", edit_campaign_path(c), class: "btn btn-primary" %>
                                      <%= link_to 'Show', campaign_path(c), class: 'btn btn-primary'%>
-                                     
                                      <%= link_to 'Delete', c, method: :delete, class:'btn btn-primary', data: { confirm: 'Are you sure?' } %>
                                  </div>
                              </div>

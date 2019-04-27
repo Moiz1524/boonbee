@@ -2,6 +2,14 @@ class DonationsController < ApplicationController
     before_action :authenticate_user!
     skip_before_action :verify_authenticity_token, :only => [:update]
     
+    def index
+        @donations = Donation.all
+        @d_total = 0
+        @donations.each do |d|
+            @d_total = @d_total + d.amount
+        end
+    end
+    
     def new
         @donation = Donation.new
     end
@@ -40,10 +48,6 @@ class DonationsController < ApplicationController
         rescue Stripe::CardError => e
         flash[:error] = e.message
         redirect_to new_donation_path
-    end
-    
-    def payment
-        
     end
     
     def donation_params

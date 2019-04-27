@@ -1,0 +1,22 @@
+<div class="container">
+    <br><h3>All Transactions</h3><br>
+    <p>Net Amount: <%= @d_total %>$</p>
+    <table>
+      <tr>
+        <th>Transaction Date</th>
+        <th>Donation</th>
+        <th>Campaign</th>
+        <th>Paid by</th>
+        <th>View Invoice</th>
+      </tr>
+      <% @donations.each do |d| %>
+          <tr>
+            <td><%= d.updated_at.strftime('%B %e ,%Y') %></td>
+            <td><%= d.amount %> $</td>
+            <td><%= link_to(d.campaign.name, campaign_path(d.campaign)) %></td>
+            <td><%= d.user.username %></td>
+            <td><%= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url ) if d.stripe_id.present? %></td>
+          </tr>
+      <% end %>
+    </table>
+</div>

@@ -50,6 +50,14 @@ class CampaignsController < ApplicationController
         end
     end
     
+    def campaign_funds
+        @funds = Campaign.find(params[:id]).donations
+        @funds_total = 0
+        @funds.each do |f|
+           @funds_total = @funds_total + f.amount 
+        end
+    end
+    
     private
     def set_campaign
        @campaign = Campaign.find(params[:id]) 
