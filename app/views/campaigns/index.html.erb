@@ -6,7 +6,6 @@
     <div class="container py-3">
         <h1>All Campaigns</h1>
         
-        <% if @campaigns %>
         <%= form_tag campaigns_path, method: :get do %>
             <div class="field">
                 <%= text_field_tag :search, params[:search] %>
@@ -14,58 +13,59 @@
             </div>
         <% end %>
               
-         <% @campaigns.each do |c| %>
-            <div class="card my-3">
-             <div class="row">
-                 <div class="col-lg-5 col-xl-4 col-md-12">
-                     <div class="fund-image" style="background-image:url('<%= c.image.url %>')">
-                         <div class="fund-image-overlay px-2">
-                             <div class="campaign-like">
-                                 <div class="row">
-                                     <div class="col-9">
-                                         <span class="text-light"> <i class="far fa-clock"></i> Ended <%= c.updated_at.strftime('%B, %y') %></span>
-                                     </div>
-                                     <div class="col-3 text-right">
-                                           <span class="text-light">1 <i class="far fa-heart"></i></span>
+        <% if !@campaigns.empty? %>
+            <% @campaigns.each do |c| %>
+                <div class="card my-3">
+                 <div class="row">
+                     <div class="col-lg-5 col-xl-4 col-md-12">
+                         <div class="fund-image" style="background-image:url('<%= c.image.url %>')">
+                             <div class="fund-image-overlay px-2">
+                                 <div class="campaign-like">
+                                     <div class="row">
+                                         <div class="col-9">
+                                             <span class="text-light"> <i class="far fa-clock"></i> Ended <%= c.updated_at.strftime('%B, %y') %></span>
+                                         </div>
+                                         <div class="col-3 text-right">
+                                               <span class="text-light">1 <i class="far fa-heart"></i></span>
+                                         </div>
                                      </div>
                                  </div>
-                             </div>
-                             <div class="campaign-avatar">
-                                 <div class="d-inline-flex">
-                                         <div class="avatar mr-2" style="background-image:url('<%= c.user.profile_pic.url %>')">
-                                         </div>
-                                         <div class="ml-1 mt-2">
-                                             <p class="text-light mb-0 line-height-9"><%= c.user.username %></p>
-                                          <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i> <%= c.user.location %></p>
-                                         </div>
+                                 <div class="campaign-avatar">
+                                     <div class="d-inline-flex">
+                                             <div class="avatar mr-2" style="background-image:url('<%= c.user.profile_pic.url %>')">
+                                             </div>
+                                             <div class="ml-1 mt-2">
+                                                 <p class="text-light mb-0 line-height-9"><%= c.user.username %></p>
+                                              <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i> <%= c.user.location %></p>
+                                             </div>
+                                     </div>
                                  </div>
                              </div>
                          </div>
                      </div>
-                 </div>
-                 <div class="col-lg-7 col-xl-8 col-md-12">
-                     <div class="p-2">
-                         <span class="text-dark"><%= link_to c.name, campaign_path(c) %></span> <span class="small"><%= time_ago_in_words(c.updated_at) %> ago</span>
-                         <p class="p-line-3 my-2"><%= c.occ_details.truncate(300) %></p>
-                         <div class="my-2">
-                             <div class="progress">
-                                 <div class="progress-bar bg-success" style="width:20%"></div>
-                            </div><br>
-                            <small><%#= c.occ_funds %> </small>
+                     <div class="col-lg-7 col-xl-8 col-md-12">
+                         <div class="p-2">
+                             <span class="text-dark"><%= link_to c.name, campaign_path(c) %></span> <span class="small"><%= time_ago_in_words(c.updated_at) %> ago</span>
+                             <p class="p-line-3 my-2"><%= c.occ_details.truncate(300) %></p>
+                             <div class="my-2">
+                                 <div class="progress">
+                                     <div class="progress-bar bg-success" style="width:20%"></div>
+                                </div><br>
+                                <small><%#= c.occ_funds %> </small>
+                             </div>
+                             <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
+                             <% if c.user.id != current_user.id %>
+                                 <%= link_to("Donate", new_donation_path(:campaign_id => c.id), class: "badge badge-pill badge-primary") %>
+                             <% end %>                            
                          </div>
-                         <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
-                         <% if c.user.id != current_user.id %>
-                             <%= link_to("Donate", new_donation_path(:campaign_id => c.id), class: "badge badge-pill badge-primary") %>
-                         <% end %>                            
                      </div>
                  </div>
-             </div>
-             </div>
-         <% end %>
-     
+                 </div>
+            <% end %>
         <% else %>
-            <!--<p>You have no campaigns raised!.</p>-->
+            <p>No results found!.</p>
         <% end %>
+        
     </div>
 
    

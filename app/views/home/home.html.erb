@@ -1,19 +1,46 @@
-<div class="container-fluid bg-light py-5">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <h1 class="font-40 mb-3">Boonbee<br>
-                     For your dreams & goals</h1>
-                     <h4 class="home-header-sub mb-3">Crowdfunding is here to help you achieve your <br> dreams by raising funds from generous people <br>all over the world who believe in you</h4>
-                     
-            </div>
-            <div class="col-md-6">
-                <img src="/section_9.jpg" class="img-fluid">
-            </div>
+<div class="container-fluid container-top py-4">
+    <div class="container container-signin container-sign p-4">
+        <div class="modal-login-body">
+            <%= form_tag new_campaign_path, method: :get do %>
+                <div class="form-group">
+                    <%= select_tag :occ_type, options_for_select(@types),  {:include_blank => 'Select Occasion',  class: 'form-control'} %>
+                </div>
+                <div class="form-group">
+                    <%= date_field_tag :occ_date, params[:occ_date], class: 'form-control' %>
+                </div>
+                <div class="form-group">
+                    Who is this for?
+                </div>
+                <div class="form-group">
+                    <%= text_field_tag :occ_details, params[:occ_details], placeholder: "Me/Someone Else", class: 'form-control' %>
+                </div>
+                    <%= submit_tag "Give Money", class: 'btn btn-primary btn-block' %>
+                    <br><p style="text-align: center;">OR</p>
+                    <%= submit_tag "Get Money", class: 'btn btn-primary btn-block' %>
+            <% end %>
         </div>
-    
+    </div>
 </div>
-</div>
+
+
+
+<!--<div class="container-fluid bg-light py-5">-->
+<!--    <div class="container">-->
+<!--        <div class="row align-items-center">-->
+<!--            <div class="col-md-6">-->
+<!--                <h1 class="font-40 mb-3">Boonbee<br>-->
+<!--                     For your dreams & goals</h1>-->
+<!--                     <h4 class="home-header-sub mb-3">Crowdfunding is here to help you achieve your <br> dreams by raising funds from generous people <br>all over the world who believe in you</h4>-->
+                     
+<!--            </div>-->
+<!--            <div class="col-md-6">-->
+<!--                <img src="/section_9.jpg" class="img-fluid">-->
+<!--            </div>-->
+<!--        </div>-->
+<!-- </div>-->
+<!--</div>-->
+
+
 <!--<div class="plan-setction py-5">-->
 <!--    <div class="container">-->
         
@@ -340,55 +367,70 @@
 <!-- </div>-->
  <div class="container-fluid py-5">
      <div class="container">
-         <% Campaign.all.order("created_at DESC").includes(:user).each do |c| %>
-            <div class="card my-3">
-             <div class="row">
-                 <div class="col-lg-5 col-xl-4 col-md-12">
-                     <div class="fund-image" style="background-image:url('<%= c.image.url %>')">
-                         <div class="fund-image-overlay px-2">
-                             <div class="campaign-like">
-                                 <div class="row">
-                                     <div class="col-9">
-                                         <span class="text-light"> <i class="far fa-clock"></i> Ended <%= c.updated_at.strftime('%B, %y') %></span>
-                                     </div>
-                                     <div class="col-3 text-right">
-                                           <span class="text-light">1 <i class="far fa-heart"></i></span>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="campaign-avatar">
-                                 <div class="d-inline-flex">
-                                         <div class="avatar mr-2" style="background-image:url('<%= c.user.profile_pic.url %>')">
-                                         </div>
-                                         <div class="ml-1 mt-2">
-                                             <p class="text-light mb-0 line-height-9"><%= c.user.username %></p>
-                                          <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i> <%= c.user.location %></p>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 <div class="col-lg-7 col-xl-8 col-md-12">
-                     <div class="p-2">
-                         <span class="text-dark"><%= link_to(c.name, campaign_path(c)) %></span> <span class="small"><%= time_ago_in_words(c.updated_at)  %> ago</span>
-                         <p class="p-line-3 my-2"><%= c.occ_details.truncate(300) %></p>
-                         <div class="my-2">
-                             <div class="progress">
-                                 <div class="progress-bar bg-success" style="width:20%"></div>
-                            </div><br>
-                            <small></small>
-                         </div>
-                         <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
-                         <% if current_user %>
-                             <% if c.user.id != current_user.id %>
-                                 <%= link_to("Donate", new_donation_path(:campaign_id => c.id), class: "badge badge-pill badge-primary") %>
-                             <% end %>
-                        <% end %>
-                     </div>
-                 </div>
-                </div>
-             </div>
-         <% end %>
+         <%# Campaign.all.order("created_at DESC").includes(:user).each do |c| %>
+            <!--<div class="card my-3">-->
+            <!-- <div class="row">-->
+            <!--     <div class="col-lg-5 col-xl-4 col-md-12">-->
+            <!--         <div class="fund-image" style="background-image:url('<%#= c.image.url %>')">-->
+            <!--             <div class="fund-image-overlay px-2">-->
+            <!--                 <div class="campaign-like">-->
+            <!--                     <div class="row">-->
+            <!--                         <div class="col-9">-->
+            <!--                             <span class="text-light"> <i class="far fa-clock"></i> Ended <%#= c.updated_at.strftime('%B, %y') %></span>-->
+            <!--                         </div>-->
+            <!--                         <div class="col-3 text-right">-->
+            <!--                               <span class="text-light">1 <i class="far fa-heart"></i></span>-->
+            <!--                         </div>-->
+            <!--                     </div>-->
+            <!--                 </div>-->
+            <!--                 <div class="campaign-avatar">-->
+            <!--                     <div class="d-inline-flex">-->
+            <!--                             <div class="avatar mr-2" style="background-image:url('<%#= c.user.profile_pic.url %>')">-->
+            <!--                             </div>-->
+            <!--                             <div class="ml-1 mt-2">-->
+            <!--                                 <p class="text-light mb-0 line-height-9"><%#= c.user.username %></p>-->
+            <!--                              <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i> <%#= c.user.location %></p>-->
+            <!--                             </div>-->
+            <!--                         </div>-->
+            <!--                     </div>-->
+            <!--                 </div>-->
+            <!--             </div>-->
+            <!--         </div>-->
+            <!--     <div class="col-lg-7 col-xl-8 col-md-12">-->
+            <!--         <div class="p-2">-->
+            <!--             <span class="text-dark"><%#= link_to(c.name, campaign_path(c)) %></span> <span class="small"><%#= time_ago_in_words(c.updated_at)  %> ago</span>-->
+            <!--             <%# @amount = 0 %>-->
+            <!--             <%# c.donations.each do |d| %>-->
+            <!--                 <%# @amount = @amount + d.amount %>-->
+            <!--             <%# end %>-->
+            <!--             <p class="p-line-3 my-2">Funds Raised: <%#= @amount %>$</p>-->
+            <!--             <div class="my-2">-->
+            <!--                 <div class="progress">-->
+                            
+            <!--                </div><br>-->
+            <!--                <small></small>-->
+            <!--             </div>-->
+            <!--             <a class="badge badge-pill badge-primary"><%#= c.occ_type %></a>-->
+            <!--             <%# if current_user %>-->
+            <!--                 <%# if c.user.id != current_user.id %>-->
+            <!--                     <%#= link_to("Donate", new_donation_path(:campaign_id => c.id), class: "badge badge-pill badge-primary") %>-->
+            <!--                 <%# end %>-->
+            <!--            <%# end %>-->
+            <!--         </div>-->
+            <!--     </div>-->
+            <!--    </div>-->
+            <!-- </div>-->
+         <%# end %>
      </div>
  </div>
+ 
+<!-- gifting money modal start -->
+
+<!-- gifting money-modal-end -->
+
+
+<script type="text/javascript">
+//     $(window).on('load',function(){
+//         $('#giftModal').modal('show');
+//     });
+</script>

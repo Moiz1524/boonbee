@@ -57,14 +57,14 @@
                         <td><%= d.updated_at.strftime('%B %e ,%Y') %></td>
                         <td><%= d.amount %> $</td>
                         <td><%= link_to(d.campaign.name, campaign_path(d.campaign)) %></td>
-                        <td><%= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url ) if d.stripe_id.present? %></td>
+                        <td><%= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url, target: :_blank ) if d.stripe_id.present? %></td>
                       </tr>
                   <% end %>
               </table>
             </div>
           <div role="tabpanel" class="tab-pane fade" id="campaign">
             <% if current_user.campaigns != [] %>
-                <% current_user.campaigns.all.order("created_at DESC").each do |c| %>
+                <% @campaigns.each do |c| %>
                 <div class="card my-3">
                  <div class="row">
                      <div class="col-lg-5 col-xl-4 col-md-12">
@@ -96,19 +96,22 @@
                      <div class="col-lg-7 col-xl-8 col-md-12">
                          <div class="p-2">
                              <span class="text-dark"><%= c.name %></span> <span class="small"><%= time_ago_in_words(c.updated_at) %></span>
-                             <p class="p-line-3 my-2"><%= c.occ_details.truncate(200) %></p>
+                             <% @amount = 0 %>
+                             <% c.donations.each do |d| %>
+                                 <% @amount = @amount + d.amount %>
+                             <% end %>
+                             <p class="p-line-3 my-2">Funds Raised: <%= @amount %>$</p>
                              <div class="my-2">
-                                 <div class="progress">
-                                     <div class="progress-bar bg-success" style="width:20%"></div>
-                                </div><br>
+                                <div class="progress"></div><br>
                                 <small></small>
                              </div>
                              <div class="row align-items-center">
                                  <div class="col-7">
                                      <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
-                                     <%= link_to("Received Payments", campaign_funds_path(c), class: 'badge badge-pill badge-primary') %>
                                  </div>
                                  <div class="col-5">
+                                     <%#= link_to("Received Payments", campaign_funds_path(c), class: 'btn btn-primary') %>
+                                     <a href="javascript:void(0)" class="btn btn-primary mb-2" data-toggle="modal" data-target="#received_payments<%= c.id %>">Received Payments</a>
                                      <%= link_to "Edit", edit_campaign_path(c), class: "btn btn-primary" %>
                                      <%= link_to 'Show', campaign_path(c), class: 'btn btn-primary'%>
                                      <%= link_to 'Delete', c, method: :delete, class:'btn btn-primary', data: { confirm: 'Are you sure?' } %>
@@ -127,3 +130,50 @@
          </div>
      </div>
 </div>
+
+<% @campaigns.each do |c| %>
+<div class="modal fade" id="received_payments<%=c.id%>" tabindex="-1" role="dialog" aria-labelledby="received_payments_label" aria-hidden="true">
+	<div class="modal-dialog text-left modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="received_payments_label">All Payments</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+                  <br>
+                  <% funds = 0 %>
+                  <% c.donations.each do |d| %>
+                      <% funds = funds + d.amount %>
+                  <% end %>
+                  <% if funds > 0 %>
+                      <p>Net Amount: <%= funds %>$</p>
+                      <table>   
+                        <tr>
+                          <th>Receiving Date</th>
+                          <th>Payment</th>
+                          <th>Paid by</th>
+                        </tr>
+                        <% c.donations.each do |d| %>
+                            <tr>
+                              <td><%= d.updated_at.strftime('%B %e ,%Y') %></td>
+                              <td><%= d.amount %> $</td>
+                              <td><%= d.user.username %></td>
+                            </tr>
+                        <% end %>
+                      </table>
+                  <% else %>
+                      <p>No results found!.</p>
+                  <% end %>
+                </div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
+<% end %>

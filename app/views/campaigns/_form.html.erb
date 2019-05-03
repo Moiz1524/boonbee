@@ -28,7 +28,7 @@
         </div>
         <div class="col-md-8">
              <label class="mb-0">Whats the Occasion?</label>
-           <%= f.select(:occ_type, Campaign.occ_types.keys.to_a{ |i| [i.id]},{ include_blank: "Select One" }, {class: 'form-control'}) %>
+           <%= f.select(:occ_type, Campaign.occ_types.keys.to_a{ |i| [i.id]},{ include_blank: "Select One",selected: params[:occ_type]}, {class: 'form-control'}) %>
         </div>
     </div>
     <hr>
@@ -39,7 +39,7 @@
         </div>
         <div class="col-md-8">
             <label class="mb-0">Occasion date</label>
-           <%= f.date_field(:occ_date, {class: "form-control"})%>
+           <%= f.date_field(:occ_date, {class: "form-control",value: params[:occ_date]})%>
         </div>
     </div>
     <hr>
@@ -50,7 +50,7 @@
         </div>
         <div class="col-md-8">
             <label class="mb-0">Details about Occasion</label>
-             <%= f.text_area(:occ_details, {class: "form-control", placeholder: "Details about occasion" }) %>
+             <%= f.text_area(:occ_details, {class: "form-control", placeholder: "Details about occasion",value: params[:occ_details] }) %>
         </div>
 </div>
     <hr>

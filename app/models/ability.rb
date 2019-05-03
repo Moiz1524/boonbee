@@ -8,8 +8,11 @@ class Ability
         cannot :update,:all
         cannot :destroy,:all
         can :manage,:admin_panel
+        # can :campaign_funds, :campaigns
       else
           cannot :manage,:all
+          cannot :index, Donation
+          # cannot :campaign_funds, Campaign
       end
       
       # if user.admin?

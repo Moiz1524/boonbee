@@ -335,6 +335,18 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+#giftModal .modal-lg{
+  max-width: 100% !important;
+  margin-top: 0 !important;
+}
+#giftModal .modal-content{
+  height: 100vh !important;
+    border-radius: 0 !important;
+}
 
-
+.button1 {
+  border: 2px solid red;
+  padding: 5px;
+  border-radius: 20px;
+}
 

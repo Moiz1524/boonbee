@@ -1,5 +1,6 @@
 class DonationsController < ApplicationController
     before_action :authenticate_user!
+    load_and_authorize_resource :only => :index
     skip_before_action :verify_authenticity_token, :only => [:update]
     
     def index

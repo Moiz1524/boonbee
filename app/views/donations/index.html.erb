@@ -1,5 +1,5 @@
 <div class="container">
-    <br><h3>All Transactions</h3><br>
+    <br><h3>All Transactions</h3>
     <p>Net Amount: <%= @d_total %>$</p>
     <table>
       <tr>
@@ -15,7 +15,7 @@
             <td><%= d.amount %> $</td>
             <td><%= link_to(d.campaign.name, campaign_path(d.campaign)) %></td>
             <td><%= d.user.username %></td>
-            <td><%= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url ) if d.stripe_id.present? %></td>
+            <td><%= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url, target: :_blank ) if d.stripe_id.present? %></td>
           </tr>
       <% end %>
     </table>

@@ -2,7 +2,7 @@ class HomeController < ApplicationController
     
     
     def home
-       
+       @types = Campaign.occ_type_options
     end
     
     # def admin
