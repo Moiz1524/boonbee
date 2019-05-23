@@ -1,1 +1,5 @@
-<p>Thanks you have paid <strong><%= @donation.amount %>$</strong></p>
+<div class="container py-4 text-center">
+    <h2>Thanks you have paid <strong><%= @donation.amount %>$</strong></h2>
+    <%= link_to "<< Back to Profile", myprofile_path %>
+</div>
+

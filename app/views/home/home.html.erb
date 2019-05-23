@@ -12,16 +12,36 @@
                     Who is this for?
                 </div>
                 <div class="form-group">
-                    <%= text_field_tag :occ_details, params[:occ_details], placeholder: "Me/Someone Else", class: 'form-control' %>
+                    <select class="form-control me_else">
+                        <option value="me">Me</option>
+                        <option value="other">Someone Else</option>
+                    </select>
                 </div>
-                    <%= submit_tag "Give Money", class: 'btn btn-primary btn-block' %>
-                    <br><p style="text-align: center;">OR</p>
-                    <%= submit_tag "Get Money", class: 'btn btn-primary btn-block' %>
+                    <a href="/campaigns" class="btn btn-primary btn-block give_m d-non">Give Money</a>
+                    <%= submit_tag "Get Money", class: 'btn btn-primary btn-block get_m' %>
             <% end %>
         </div>
     </div>
 </div>
-
+<div class="container-fluid bg-light py-5">
+  <div class="container">
+      <h1 class="text-center mb-5">This Section Contain the Benefits of the Site</h1>
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <img src="/money.png" class="img-fluid">
+            <h3 class="text-primary mt-3">Benefit 1</h3>
+        </div>
+        <div class="col-md-4 text-center">
+            <img src="/money.png" class="img-fluid">
+            <h3 class="text-primary mt-3">Benefit 2</h3>
+        </div>
+        <div class="col-md-4 text-center">
+            <img src="/money.png" class="img-fluid">
+            <h3 class="text-primary mt-3">Benefit 3</h3>
+        </div>
+    </div>
+</div>  
+</div>
 
 
 <!--<div class="container-fluid bg-light py-5">-->
@@ -430,7 +450,14 @@
 
 
 <script type="text/javascript">
-//     $(window).on('load',function(){
-//         $('#giftModal').modal('show');
-//     });
+    $('.me_else').on('change',function(){
+       if($(this).val() == "me"){
+           $('.give_m').hide();
+           $('.get_m').css('display','block');
+       }
+       if($(this).val() == "other"){
+           $('.give_m').css('display','block');
+           $('.get_m').hide();
+       }
+    });
 </script>

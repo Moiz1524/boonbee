@@ -37,7 +37,7 @@
     </div>
     <div class="col-md-9 mx-auto">
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="about">
+          <div role="tabpanel" class="tab-pane active" id="about">
                 <div class="row">
                     <div class="col-md-12">
                         <%= current_user.bio %>
@@ -76,7 +76,7 @@
                                              <span class="text-light"> <i class="far fa-clock"></i> Ended <%= c.updated_at.strftime('%B, %y') %></span>
                                          </div>
                                          <div class="col-3 text-right">
-                                               <span class="text-light">1 <i class="far fa-heart"></i></span>
+                                               <!--<span class="text-light">1 <i class="far fa-heart"></i></span>-->
                                          </div>
                                      </div>
                                  </div>
@@ -95,7 +95,7 @@
                      </div>
                      <div class="col-lg-7 col-xl-8 col-md-12">
                          <div class="p-2">
-                             <span class="text-dark"><%= c.name %></span> <span class="small"><%= time_ago_in_words(c.updated_at) %></span>
+                             <span class="text-dark"><%= c.name %></span> <span class="small"><%= time_ago_in_words(c.updated_at) %> ago</span>
                              <% @amount = 0 %>
                              <% c.donations.each do |d| %>
                                  <% @amount = @amount + d.amount %>
@@ -109,6 +109,10 @@
                                  <div class="col-7">
                                      <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
                                  </div>
+                                 <%= social_share_button_tag(campaign_path(c), desc:  c.occ_details) %>
+                                 <% if c.job_flag %>
+                                      <%= link_to("CashOut", root_path, class: "btn btn-primary float-right donate-btn") %>
+                                 <% end %>
                                  <div class="col-5">
                                      <%#= link_to("Received Payments", campaign_funds_path(c), class: 'btn btn-primary') %>
                                      <a href="javascript:void(0)" class="btn btn-primary mb-2" data-toggle="modal" data-target="#received_payments<%= c.id %>">Received Payments</a>

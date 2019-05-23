@@ -11,8 +11,10 @@
  * It is generally better to create a new file per style scope.
  *
  *= require sweetalert
+ *= require social-share-button
  *= require_tree .
  *= require_self
+ 
  */
  
 @font-face {
@@ -349,4 +351,17 @@ tr:nth-child(even) {
   padding: 5px;
   border-radius: 20px;
 }
-
+.donate-btn {
+  border-radius: 30px;
+}
+.donation-form {
+  max-width: 350px;
+  padding: 15px 10px;
+  margin: 0 auto !important;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  
+}
+.stripe-button-el {
+  width: 100%;
+}

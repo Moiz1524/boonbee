@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get 'admin_panel',to: 'admin_panel#index',as: :admin_panel
   get 'admin_panel/users',as: :admin_users
+  get 'admin_panel/all_campaigns', to: 'admin_panel#all_campaigns', as: :all_campaigns
 
   devise_for :users,:controllers => { sessions: 'users/sessions',registrations: 'users/registrations',passwords: 'users/passwords' }
   root 'home#home'

@@ -1,22 +1,37 @@
-<div class="container">
-    <br><h3>All Transactions</h3>
-    <p>Net Amount: <%= @d_total %>$</p>
-    <table>
-      <tr>
-        <th>Transaction Date</th>
-        <th>Donation</th>
-        <th>Campaign</th>
-        <th>Paid by</th>
-        <th>View Invoice</th>
-      </tr>
-      <% @donations.each do |d| %>
-          <tr>
-            <td><%= d.updated_at.strftime('%B %e ,%Y') %></td>
-            <td><%= d.amount %> $</td>
-            <td><%= link_to(d.campaign.name, campaign_path(d.campaign)) %></td>
-            <td><%= d.user.username %></td>
-            <td><%= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url, target: :_blank ) if d.stripe_id.present? %></td>
-          </tr>
-      <% end %>
-    </table>
+<div class="container-fluid container-gray py-5">
+    <div class="container">
+        <div class="row">
+            <%= render 'admin_panel/sidebar' %>
+            <div class="col-xl-8">
+              <%= render 'admin_panel/statistics' %>
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="mb-3">All Transactions</h3>
+                  <p>Net Amount: <%= @d_total %>$</p>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <tr>
+                        <th>Transaction Date</th>
+                        <th>Donation</th>
+                        <th>Campaign</th>
+                        <th>Paid by</th>
+                        <th>View Invoice</th>
+                      </tr>
+                      <% @donations.each do |d| %>
+                          <tr>
+                            <td><%= d.updated_at.strftime('%B %e ,%Y') %></td>
+                            <td><%= d.amount %> $</td>
+                            <td><%= link_to(d.campaign.name, campaign_path(d.campaign)) %></td>
+                            <td><%= d.user.username %></td>
+                            <td><%= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url, target: :_blank ) if d.stripe_id.present? %></td>
+                          </tr>
+                      <% end %>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>   
+    </div>    
 </div>
+

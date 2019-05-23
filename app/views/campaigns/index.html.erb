@@ -26,7 +26,7 @@
                                              <span class="text-light"> <i class="far fa-clock"></i> Ended <%= c.updated_at.strftime('%B, %y') %></span>
                                          </div>
                                          <div class="col-3 text-right">
-                                               <span class="text-light">1 <i class="far fa-heart"></i></span>
+                                               <!--<span class="text-light">1 <i class="far fa-heart"></i></span>-->
                                          </div>
                                      </div>
                                  </div>
@@ -46,21 +46,30 @@
                      <div class="col-lg-7 col-xl-8 col-md-12">
                          <div class="p-2">
                              <span class="text-dark"><%= link_to c.name, campaign_path(c) %></span> <span class="small"><%= time_ago_in_words(c.updated_at) %> ago</span>
-                             <p class="p-line-3 my-2"><%= c.occ_details.truncate(300) %></p>
+                             <% @amount = 0 %>
+                                 <% c.donations.each do |d| %>
+                                     <% @amount = @amount + d.amount %>
+                                 <% end %>
+                             <p class="p-line-3 my-2">Funds Raised: <%= @amount %>$</p>
                              <div class="my-2">
-                                 <div class="progress">
-                                     <div class="progress-bar bg-success" style="width:20%"></div>
-                                </div><br>
-                                <small><%#= c.occ_funds %> </small>
+                                <div class="progress"></div><br>
+                                <small></small>
                              </div>
-                             <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
-                             <% if c.user.id != current_user.id %>
-                                 <%= link_to("Donate", new_donation_path(:campaign_id => c.id), class: "badge badge-pill badge-primary") %>
-                             <% end %>                            
+                             <div class="row">
+                                 <div class="col-6">
+                                      <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
+                                 </div>
+                                 <div class="col-6">
+                                 <% if c.user.id != current_user.id %>
+                                 <%= link_to("Donate", new_donation_path(:campaign_id => c.id), class: "btn btn-primary float-right donate-btn") %>
+                                 <% end %>
+                                 <%= social_share_button_tag(campaign_path(c), desc:  c.occ_details) %>
+                                 </div>
+                             </div>
                          </div>
                      </div>
                  </div>
-                 </div>
+               </div>
             <% end %>
         <% else %>
             <p>No results found!.</p>

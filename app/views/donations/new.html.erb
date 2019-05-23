@@ -1,3 +1,7 @@
+<div class="container-fluid bg-light py-5">
+  <div class="donation-form">
+    <h4 class="text-center mb-3">Donation Transaction Details</h4>
+    
 <% if flash[:error].present? %>
   <div id="error_explanation">
     <p><%= flash[:error] %></p>
@@ -8,22 +12,44 @@
     <%= f.hidden_field :user_id, { :value => current_user.id } %>
     <%= f.hidden_field :campaign_id, { :value => params[:campaign_id] }%>
     <div class="field">
-      <%= f.label "Enter amount in dollars:" %><br>
-      <%= f.number_field :amount %>  
+      <%#= f.label "Enter amount in dollars" %>
+      <%= f.number_field :amount, class: 'form-control mb-3', placeholder: 'Enter amount in dollars' %>  
+    </div>
+    <div class="row mt-3">
+      <div class="col-6">
+        Service Fee <i class="fas fa-question-circle"></i>
+      </div>
+      <div class="col-6 text-right">
+        $0
+      </div>
+    </div>
+    <hr>
+    <div class="row mb-3">
+      <div class="col-6">
+        Total
+      </div>
+      <div class="col-6 text-right font-weight-bold">
+        $<span class="total_text">0</span>
+      </div>
     </div>
     <div class="actions">
-      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+     <center> <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="Contribute to this campaign"
           data-amount="500"
-          data-locale="auto"></script>
+          data-locale="auto"></script></center>
     </div>
+    <center class="mt-1">You won't be charged yet</center>
 <% end %>
 
+</div>
+</div>
 <script>
   $(document).ready(function() {
     $("#donation_amount").keyup(function(){
+  var d_amount = $("#donation_amount").val();
       $('.actions').html('<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.configuration.stripe[:publishable_key] %>" data-description="A month\'s subscription" data-amount="' + $("#donation_amount").val() * 100 + '" data-locale="auto"><\/script>');
+      $('.total_text').html(d_amount);
     })
   });
 </script>
