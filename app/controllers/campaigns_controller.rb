@@ -2,11 +2,12 @@ class CampaignsController < ApplicationController
     
     before_action :authenticate_user!
     before_action :set_campaign, only: [:edit,:update,:destroy,:show]
+    load_and_authorize_resource :only => [:edit, :update, :destroy]
     
     def index
         if current_user.admin
             if params[:search].present?
-                @campaigns = Campaign.joins(:user).where("campaigns.name ILIKE ? OR users.username ILIKE?","%#{params[:search]}%", "%#{params[:search]}%")
+                @campaigns = Campaign.joins(:user).where("campaigns.name ILIKE ? OR users.username ILIKE? OR users.phone_number LIKE?","%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
             else
                 @campaigns = Campaign.all.includes(:user)
                 # @campaigns = Campaign.search(params[:search])

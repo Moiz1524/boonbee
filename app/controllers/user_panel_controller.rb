@@ -4,6 +4,12 @@ class UserPanelController < ApplicationController
   end
   def profile
     @campaigns = current_user.campaigns.all.order("created_at DESC").each
+    @donations = Array.new
+    Donation.all.each do |d|
+      if d.campaign.user_id == current_user.id
+        @donations.push d
+      end
+    end
     # @funds = Campaign.find(params[:id]).donations
     # @funds_total = 0
     # @funds.each do |f|

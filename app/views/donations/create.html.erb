@@ -1,5 +1,6 @@
 <div class="container py-4 text-center">
-    <h2>Thanks you have paid <strong><%= @donation.amount %>$</strong></h2>
-    <%= link_to "<< Back to Profile", myprofile_path %>
+    <h1>Thanks you for giving some love to <%= @donation_receiver %></h1><br>
+    <h2><strong>[<%= @donation.amount %>$]</strong></h2>
+    <%= link_to "Close", campaigns_path %>
 </div>
 

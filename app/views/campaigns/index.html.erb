@@ -23,7 +23,11 @@
                                  <div class="campaign-like">
                                      <div class="row">
                                          <div class="col-9">
-                                             <span class="text-light"> <i class="far fa-clock"></i> Ended <%= c.updated_at.strftime('%B, %y') %></span>
+                                              <% if c.occ_date < Time.now.strftime("%a, %d %b %Y").to_date %>
+                                                 <span class="text-light"> <i class="far fa-clock"></i> Ended <%= c.occ_date.strftime('%B, %y') %></span>
+                                              <% else %>
+                                                 <span class="text-light"> <i class="far fa-clock"></i> Ends on <%= c.occ_date.strftime('%B, %y') %></span>
+                                              <% end %>
                                          </div>
                                          <div class="col-3 text-right">
                                                <!--<span class="text-light">1 <i class="far fa-heart"></i></span>-->
@@ -50,7 +54,12 @@
                                  <% c.donations.each do |d| %>
                                      <% @amount = @amount + d.amount %>
                                  <% end %>
-                             <p class="p-line-3 my-2">Funds Raised: <%= @amount %>$</p>
+                                 <% if c.user == current_user %>
+                                     <p class="p-line-3 my-2">Funds Raised: <%= @amount %>$</p>
+                                 <% else %>
+                                     <p class="p-line-3 my-2">$$$</p>
+                                 <% end %> 
+                                    
                              <div class="my-2">
                                 <div class="progress"></div><br>
                                 <small></small>
@@ -61,7 +70,7 @@
                                  </div>
                                  <div class="col-6">
                                  <% if c.user.id != current_user.id %>
-                                 <%= link_to("Donate", new_donation_path(:campaign_id => c.id), class: "btn btn-primary float-right donate-btn") %>
+                                 <%= link_to("Give Money", new_donation_path(:campaign_id => c.id), class: "btn btn-primary float-right donate-btn") %>
                                  <% end %>
                                  <%= social_share_button_tag(campaign_path(c), desc:  c.occ_details) %>
                                  </div>

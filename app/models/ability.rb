@@ -11,6 +11,7 @@ class Ability
         # can :campaign_funds, :campaigns
       else
           cannot :manage,:all
+          cannot :update, :campaigns
           cannot :index, Donation
           # cannot :campaign_funds, Campaign
       end

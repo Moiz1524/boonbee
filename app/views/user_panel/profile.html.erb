@@ -25,13 +25,13 @@
     <div class="col-md-7 mx-auto mb-4">
          <ul class="nav nav-tabs text-center profile-tabs" role="tablist">
           <li class="nav-item font-25">
-            <a class="nav-link active profile-tabs-color" href="#about" role="tab" data-toggle="tab" aria-selected="true">About</a>
+            <a class="nav-link active profile-tabs-color" href="#about" role="tab" data-toggle="tab" aria-selected="true">Current Request</a>
           </li>
           <li class="nav-item font-25">
-            <a class="nav-link profile-tabs-color" href="#contributors" role="tab" data-toggle="tab">Contributions</a>
+            <a class="nav-link profile-tabs-color" href="#contributors" role="tab" data-toggle="tab">Money Given</a>
           </li>
           <li class="nav-item font-25">
-            <a class="nav-link profile-tabs-color" href="#campaign" role="tab" data-toggle="tab">Campaigns</a>
+            <a class="nav-link profile-tabs-color" href="#campaign" role="tab" data-toggle="tab">Money Gifts Received</a>
           </li>
         </ul>
     </div>
@@ -47,33 +47,43 @@
           <div role="tabpanel" class="tab-pane fade" id="contributors">
               <table>
                   <tr>
-                    <th>Transaction Date</th>
-                    <th>Donation</th>
-                    <th>Campaign</th>
-                    <th>View Invoice</th>
+                    <th>Occasion</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <!--<th>View Invoice</th>-->
                   </tr>
+                  <% t_amount = 0 %>
                   <% current_user.donations.each do |d| %>
+                  <% username = d.campaign.user.username %>
+                  <% t_amount = t_amount + d.amount %>
                       <tr>
+                        <td><%= link_to("#{username} #{d.campaign.occ_type}", campaign_path(d.campaign)) %></td>
                         <td><%= d.updated_at.strftime('%B %e ,%Y') %></td>
-                        <td><%= d.amount %> $</td>
-                        <td><%= link_to(d.campaign.name, campaign_path(d.campaign)) %></td>
-                        <td><%= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url, target: :_blank ) if d.stripe_id.present? %></td>
+                        <td>$<%= d.amount %></td>
+                        <%#= link_to(d.campaign.name, campaign_path(d.campaign)) %>
+                        <%#= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url, target: :_blank ) if d.stripe_id.present? %>
                       </tr>
                   <% end %>
+                  <tr>
+                      <td><strong>TOTAL</strong></td>
+                      <td></td>
+                      <td><strong>$<%= t_amount %></strong></td>
+                  </tr>
               </table>
             </div>
           <div role="tabpanel" class="tab-pane fade" id="campaign">
             <% if current_user.campaigns != [] %>
-                <% @campaigns.each do |c| %>
-                <div class="card my-3">
+                <% @donations.sort.reverse.each do |d| %>
+                <%# if c.donations != [] %>
+                  <div class="card my-3">
                  <div class="row">
                      <div class="col-lg-5 col-xl-4 col-md-12">
-                         <div class="fund-image" style="background-image:url('<%= c.image.url %>')">
+                         <div class="fund-image" style="background-image:url('<%= d.user.profile_pic.url %>')">
                              <div class="fund-image-overlay px-2">
                                  <div class="campaign-like">
                                      <div class="row">
                                          <div class="col-9">
-                                             <span class="text-light"> <i class="far fa-clock"></i> Ended <%= c.updated_at.strftime('%B, %y') %></span>
+                                             <%#= c.updated_at.strftime('%B, %y') %>
                                          </div>
                                          <div class="col-3 text-right">
                                                <!--<span class="text-light">1 <i class="far fa-heart"></i></span>-->
@@ -82,12 +92,12 @@
                                  </div>
                                  <div class="campaign-avatar">
                                      <div class="d-inline-flex">
-                                             <div class="avatar mr-2" style="background-image:url('<%= c.user.profile_pic.url %>')">
-                                             </div>
-                                             <div class="ml-1 mt-2">
-                                                 <p class="text-light mb-0 line-height-9"><%= c.user.username %></p>
-                                              <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i> <%= c.user.location %></p>
-                                             </div>
+                                             <!--<div class="avatar mr-2" style="background-image:url('<%#= c.user.profile_pic.url %>')">-->
+                                             <!--</div>-->
+                                             <!--<div class="ml-1 mt-2">-->
+                                             <!--    <p class="text-light mb-0 line-height-9"><%#= c.user.username %></p>-->
+                                             <!-- <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i> <%#= c.user.location %></p>-->
+                                             <!--</div>-->
                                      </div>
                                  </div>
                              </div>
@@ -95,30 +105,41 @@
                      </div>
                      <div class="col-lg-7 col-xl-8 col-md-12">
                          <div class="p-2">
-                             <span class="text-dark"><%= c.name %></span> <span class="small"><%= time_ago_in_words(c.updated_at) %> ago</span>
-                             <% @amount = 0 %>
-                             <% c.donations.each do |d| %>
-                                 <% @amount = @amount + d.amount %>
-                             <% end %>
-                             <p class="p-line-3 my-2">Funds Raised: <%= @amount %>$</p>
+                             <span class="text-dark"><%#= c.name %><%= d.user.username %></span> 
+                             <!--<span class="small"><%#= time_ago_in_words(c.updated_at) %> ago</span>-->
+                             <%# @amount = 0 %>
+                             <%# c.donations.each do |d| %>
+                                 <%# @amount = @amount + d.amount %>
+                             <%# end %>
+                             <p class="p-line-3 my-2"><%= d.user.location %></p>
+                             <h1>$<%= d.amount %></h1>
+                             
                              <div class="my-2">
                                 <div class="progress"></div><br>
                                 <small></small>
+                                <i>Just a little something for you</i><br>
+                                <a href="#">Leave a comment</a>
                              </div>
                              <div class="row align-items-center">
-                                 <div class="col-7">
-                                     <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
+                                 <!--<div class="col-7">-->
+                                 <!--    <a class="badge badge-pill badge-primary"><%#= c.occ_type %></a>-->
+                                 <!--</div>-->
+                                 <div class="col-12">
+                                     <div class="btn btn-primary float-right donate-btn">
+                                     <%= social_share_button_tag(campaign_path(d.campaign), desc: d.campaign.occ_details, :allow_sites => %w(facebook)) %> Share
+                                     </div>
                                  </div>
-                                 <%= social_share_button_tag(campaign_path(c), desc:  c.occ_details) %>
-                                 <% if c.job_flag %>
-                                      <%= link_to("CashOut", root_path, class: "btn btn-primary float-right donate-btn") %>
-                                 <% end %>
+                                 
+                                 
+                                 <%# if c.job_flag %>
+                                      <%#= link_to("CashOut", root_path, class: "btn btn-primary float-right donate-btn") %>
+                                 <%# end %>
                                  <div class="col-5">
                                      <%#= link_to("Received Payments", campaign_funds_path(c), class: 'btn btn-primary') %>
-                                     <a href="javascript:void(0)" class="btn btn-primary mb-2" data-toggle="modal" data-target="#received_payments<%= c.id %>">Received Payments</a>
-                                     <%= link_to "Edit", edit_campaign_path(c), class: "btn btn-primary" %>
-                                     <%= link_to 'Show', campaign_path(c), class: 'btn btn-primary'%>
-                                     <%= link_to 'Delete', c, method: :delete, class:'btn btn-primary', data: { confirm: 'Are you sure?' } %>
+                                     <!--<a href="javascript:void(0)" class="btn btn-primary mb-2" data-toggle="modal" data-target="#received_payments<%#= c.id %>">Received Payments</a>-->
+                                     <%#= link_to "Edit", edit_campaign_path(c), class: "btn btn-primary" %>
+                                     <%#= link_to 'Show', campaign_path(c), class: 'btn btn-primary'%>
+                                     <%#= link_to 'Delete', c, method: :delete, class:'btn btn-primary', data: { confirm: 'Are you sure?' } %>
                                  </div>
                              </div>
                          </div>

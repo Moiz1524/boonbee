@@ -7,24 +7,30 @@
               <div class="card">
                 <div class="card-body">
                   <h3 class="mb-3">All Transactions</h3>
-                  <p>Net Amount: <%= @d_total %>$</p>
+                  <h3 class="mb-3">Date</h3>
+                  <h2><strong><%= Time.now.strftime("%-m/%-d/%Y") %></strong></h2>
                   <div class="table-responsive">
                     <table class="table table-bordered">
                       <tr>
-                        <th>Transaction Date</th>
-                        <th>Donation</th>
-                        <th>Campaign</th>
-                        <th>Paid by</th>
-                        <th>View Invoice</th>
+                        <th>Occasion Event</th>
+                        <th>Total Received</th>
+                        <th>End Date</th>
+                        <th>Notifications</th>
+                        <th>Manage Event</th>
                       </tr>
-                      <% @donations.each do |d| %>
-                          <tr>
-                            <td><%= d.updated_at.strftime('%B %e ,%Y') %></td>
-                            <td><%= d.amount %> $</td>
-                            <td><%= link_to(d.campaign.name, campaign_path(d.campaign)) %></td>
-                            <td><%= d.user.username %></td>
-                            <td><%= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url, target: :_blank ) if d.stripe_id.present? %></td>
-                          </tr>
+                      <% @campaigns.each do |c| %>
+                      <% received_total = 0 %>
+                        <% c.donations.each do |d| %>
+                            <% received_total = received_total + d.amount %>
+                        <% end %>
+                              <tr>
+                                <td><%= link_to(c.name, campaign_path(c)) %></td>
+                                <td><%= received_total %> $</td>
+                                <td><%= c.occ_date %>
+                                  <%#= d.campaign.occ_date.strftime("%-m/%-d/%Y") %></td>
+                                <td><%#= d.updated_at.strftime('%B %e ,%Y') %>-</td>
+                                <td style="color: red;"><%#= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url, target: :_blank ) if d.stripe_id.present? %>Suspend</td>
+                              </tr>
                       <% end %>
                     </table>
                   </div>

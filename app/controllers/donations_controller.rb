@@ -4,11 +4,12 @@ class DonationsController < ApplicationController
     skip_before_action :verify_authenticity_token, :only => [:update]
     
     def index
-        @donations = Donation.all
-        @d_total = 0
-        @donations.each do |d|
-            @d_total = @d_total + d.amount
-        end
+        # @donations = Donation.all
+        @campaigns = Campaign.where('occ_date > ?', Time.now.strftime("%a, %d %b %Y").to_date)
+        # @d_total = 0
+        # @donations.each do |d|
+        #     @d_total = @d_total + d.amount
+        # end
     end
     
     def new
@@ -17,6 +18,7 @@ class DonationsController < ApplicationController
     
     def create
         @donation = current_user.donations.new(donation_params)
+        @donation_receiver = @donation.campaign.user.username
         @amount = @donation.amount * 100
         customer = Stripe::Customer.create({
             email: current_user.email,
