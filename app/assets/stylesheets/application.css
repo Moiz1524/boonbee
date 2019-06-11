@@ -158,6 +158,10 @@ img#blah:hover {
   font-size: 25px;
   font-weight: 800;
 }
+.font-23 {
+  font-size: 23px;
+  font-weight: 800;
+}
 .profile-tabs {
    border-bottom: 0px !important;
 }
