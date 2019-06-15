@@ -12,6 +12,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'stripe'
 gem 'figaro'
+gem 'sidekiq'
 
 gem 'mysql2',          '~> 0.3',    :platform => :ruby
 
