@@ -5,7 +5,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
       if user.admin
         can :read, :all
-        cannot :update,:all
+        can :update,:all
         cannot :destroy,:all
         can :manage,:admin_panel
         # can :campaign_funds, :campaigns
@@ -15,7 +15,7 @@ class Ability
           cannot :index, Donation
           # cannot :campaign_funds, Campaign
       end
-      
+
       # if user.admin?
       #   can :read, :all
       #   cannot :update,:all

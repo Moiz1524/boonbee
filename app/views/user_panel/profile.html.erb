@@ -82,7 +82,7 @@
                      </div>
                      <div class="col-lg-8 col-xl-9 col-md-12 pt-3 pb-2">
                          <div class="">
-                             <span class="text-dark"><%#= c.name %><%= d.user.username %></span> 
+                             <span class="text-dark"><%#= c.name %><%= d.user.username %></span>
                              <!--<span class="small"><%#= time_ago_in_words(c.updated_at) %> ago</span>-->
                              <%# @amount = 0 %>
                              <%# c.donations.each do |d| %>
@@ -90,12 +90,13 @@
                              <%# end %>
                              <p class="p-line-3 my-2"><%= d.user.location %></p>
                              <h1>$<%= d.amount %></h1>
-                             
+
                              <div class="">
                                 <!--<div class="progress"></div><br>-->
                                 <small></small>
                                 <i>Just a little something for you</i><br>
-                                <a href="#">Leave a comment</a>
+                                <a href="#">Leave a comment</a><br>
+                                <a href="https://connect.stripe.com/oauth/authorize?response_type=code&amp;client_id=ca_FFismWy4uVOpHgpHfND24fRQZxKeuawZ&amp;scope=read_write" class="btn btn-primary"><span>Stripe Connect</span></a>
                              </div>
                              <div class="row align-items-center">
                                  <!--<div class="col-7">-->
@@ -106,8 +107,8 @@
                                      <%= social_share_button_tag(campaign_path(d.campaign), desc: d.campaign.occ_details, :allow_sites => %w(facebook)) %> Share
                                      </div>
                                  </div>
-                                 
-                                 
+
+
                                  <%# if c.job_flag %>
                                       <%#= link_to("CashOut", root_path, class: "btn btn-primary float-right donate-btn") %>
                                  <%# end %>
@@ -152,7 +153,7 @@
                   <% end %>
                   <% if funds > 0 %>
                       <p>Net Amount: <%= funds %>$</p>
-                      <table>   
+                      <table>
                         <tr>
                           <th>Receiving Date</th>
                           <th>Payment</th>

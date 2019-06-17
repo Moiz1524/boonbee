@@ -14,13 +14,13 @@
  *= require social-share-button
  *= require_tree .
  *= require_self
- 
+
  */
- 
+
 @font-face {
   font-family: SystemPlusFont;
-  src: url('Roboto.ttf') format('opentype'); 
-    
+  src: url('Roboto.ttf') format('opentype');
+
 }
 body,
 p,
@@ -74,8 +74,8 @@ b {
 .setting-links ul a li {
     border-bottom: 1px solid #dadfe2;
     line-height: 14px;
-   
-   
+
+
 }
 a.active li {
     border-left: 2px solid #437591 !important;
@@ -87,14 +87,14 @@ a.active li {
     padding: 15px 10px;
     display: inline-block;
     width: 100%;
-    
+
 }
 .setting-profile-image {
   border-radius: 50%;
   display: block;
   backface-visibility: hidden;
   opacity: 1;
- 
+
 }
 .setting-profile-image:hover {
   opacity: 0.1;
@@ -122,7 +122,7 @@ img#blah:hover {
 }
 .profile-change-icon:hover .middle{
   opacity: 1 !important;
-  
+
 }
 .profile-show-image {
   width: 130px;
@@ -248,7 +248,7 @@ a.nav-link.profile-tabs-color {
   background: rgba(0, 0, 0, 0.6);
   height: 100%;
   position: relative;
-  
+
 }
 .thumb {
     background: -webkit-linear-gradient(left, rgb(104, 202, 231) 0%, rgb(101, 219, 230) 100%);
@@ -364,8 +364,22 @@ tr:nth-child(even) {
   margin: 0 auto !important;
   border: 1px solid #eee;
   border-radius: 5px;
-  
+
 }
 .stripe-button-el {
   width: 100%;
 }
+
+/* .connect-button {
+  display: inline-block;
+  margin-bottom: 1px;
+  background-image: linear-gradient(#28a0e5,#015e94);
+  border: 0;
+  padding: 1px;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.2);
+  cursor: pointer;
+  -webkit-user-select: none;
+  text-decoration: none !important;
+} */
