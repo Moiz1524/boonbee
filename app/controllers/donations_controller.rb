@@ -53,6 +53,12 @@ class DonationsController < ApplicationController
         redirect_to new_donation_path
     end
 
+    def preview_receiver
+      @gift_giver = Donation.where(:user_id => params[:gift_giver]).last
+      @campaign_name = @gift_giver.campaign.name
+      @donation_amount = @gift_giver.amount
+    end
+
     def donation_params
         params.require(:donation).permit(:amount, :user_id, :campaign_id, :stripeId)
     end

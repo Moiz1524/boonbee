@@ -1,5 +1,7 @@
 <div class="container py-4 text-center">
     <h2>Thanks you for giving some love to <%= @donation_receiver %></h2><br>
     <h3><strong>[<%= @donation.amount %>$]</strong></h3>
-    <%= link_to "Preview Gift Receiver Page", test_path, class: 'btn btn-primary mt-3' %>
+    <%= link_to "Preview Gift Receiver Page", preview_receiver_path(
+        :gift_giver => @donation.user.id
+      ), class: 'btn btn-primary mt-3' %>
 </div>
