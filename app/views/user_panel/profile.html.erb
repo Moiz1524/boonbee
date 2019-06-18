@@ -57,7 +57,7 @@
                   <% username = d.campaign.user.username %>
                   <% t_amount = t_amount + d.amount %>
                       <tr>
-                        <td><%= link_to("#{username} #{d.campaign.occ_type}", campaign_path(d.campaign)) %></td>
+                        <td><%= link_to("#{username} #{d.campaign.name}", campaign_path(d.campaign)) %></td>
                         <td><%= d.updated_at.strftime('%B %e ,%Y') %></td>
                         <td>$<%= d.amount %></td>
                         <%#= link_to(d.campaign.name, campaign_path(d.campaign)) %>

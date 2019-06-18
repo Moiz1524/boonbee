@@ -8,14 +8,15 @@ Rails.application.routes.draw do
 
   devise_for :users,:controllers => { sessions: 'users/sessions',registrations: 'users/registrations',passwords: 'users/passwords' }
   root 'home#home'
+  get 'test', to: 'home#test', as: :test 
   get 'admin', to: 'home#admin', as: :admin
   get '/invoices/:id', to: 'user_panel#view_invoice', as: :view_invoice
   resources :users
-  
-  resources :campaigns 
-  
+
+  resources :campaigns
+
   get 'campaigns/:id/campaign_funds', to: 'campaigns#campaign_funds', as: :campaign_funds
-  
+
   resources :donations
 
 end
