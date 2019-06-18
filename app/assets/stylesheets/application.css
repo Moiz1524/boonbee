@@ -386,3 +386,6 @@ tr:nth-child(even) {
 h4{
   letter-spacing: 1px !important;
 }
+.navbar-toggler {
+  background-color: #437591 !important;
+}
