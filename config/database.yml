@@ -7,8 +7,8 @@ default: &default
 development:
   <<: *default
   database: freelance_development
-  username: moiz
-  password:
+  username: waqas
+  password: root
 test:
   <<: *default
   database: freelance_test
