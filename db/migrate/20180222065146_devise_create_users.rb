@@ -22,7 +22,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       ## Omniauthable
       t.string   :provider
       t.string   :uid
-      
+
       ## Confirmable
       # t.string   :confirmation_token
       # t.datetime :confirmed_at
@@ -34,9 +34,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
-      t.string :first_name,default: ""
-      t.string :last_name,default: ""
-      t.string :username,default: ""
+      t.string :first_name, default: ""
+      t.string :last_name, default: ""
+      t.string :username, default: ""
       t.string :bio
       t.string :headline
       t.date :birth_date

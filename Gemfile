@@ -28,7 +28,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem "awesome_print", require:"ap" #for rails console 
+  gem "awesome_print", require:"ap" #for rails console
   gem "meta_request" # browser extension for rails metrics
   gem 'bullet' # for N+1 queries
 end
@@ -43,4 +43,3 @@ gem 'cancancan', '~> 2.0'
 gem 'friendly_id', '~> 5.2', '>= 5.2.4'
 gem "paperclip"
 gem 'sweetalert-rails'
-
