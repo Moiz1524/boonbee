@@ -26,10 +26,10 @@
                                               <p class="text-light mb-0 line-height-9"><%= @campaign.user.username %></p>
                                           <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i> <%= @campaign.user.location %></p>
                                       </div>
-                                    
+
                                  </div>
                              </div>
-                            
+
                          </div>
                      </div>
                  </div>
@@ -51,7 +51,7 @@
                               </div><br>
                             <small><%#= @campaign.occ_funds %></small>
                           </div>
-                         <a class="badge badge-pill badge-primary"><%= @campaign.occ_type %></a>
+                         <a class="badge badge-pill badge-primary"><%= @campaign.occ_type %></a><br>
                              <% if @campaign.user.id != current_user.id %>
                                  <%= link_to("Give Money", new_donation_path(:campaign_id => @campaign.id ), class: "btn btn-primary float-right donate-btn") %>
                              <% end %><br>

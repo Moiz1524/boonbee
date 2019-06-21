@@ -15,6 +15,7 @@ gem 'stripe'
 gem 'figaro'
 gem 'social-share-button'
 
+
 gem 'mysql2',          '~> 0.3',    :platform => :ruby
 
 gem 'thinking-sphinx', '~> 4.2'

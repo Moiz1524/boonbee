@@ -1,18 +1,18 @@
 <%# @campaigns.each do |c| %>
-    <%#= c.user.username %>      
+    <%#= c.user.username %>
 <%# end %>
 <!--To display sphinx results-->
 
     <div class="container py-3">
         <h1>All Campaigns</h1>
-        
+
         <%= form_tag campaigns_path, method: :get do %>
             <div class="field">
                 <%= text_field_tag :search, params[:search] %>
                 <%= submit_tag "Search" %>
             </div>
         <% end %>
-              
+
         <% if !@campaigns.empty? %>
             <% @campaigns.each do |c| %>
                 <div class="card my-3">
@@ -58,8 +58,8 @@
                                      <p class="p-line-3 my-2">Funds Raised: <%= @amount %>$</p>
                                  <% else %>
                                      <p class="p-line-3 my-2">$$$</p>
-                                 <% end %> 
-                                    
+                                 <% end %>
+
                              <div class="my-2">
                                 <div class="progress"></div><br>
                                 <small></small>
@@ -83,8 +83,5 @@
         <% else %>
             <p>No results found!.</p>
         <% end %>
-        
+
     </div>
-
-   
-

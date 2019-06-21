@@ -29,7 +29,11 @@ class DonationsController < ApplicationController
             customer: customer.id,
             amount: @amount,
             description: 'Boonbee Stripe customer',
-            currency: 'usd',
+            currency: 'usd'
+            # source: 'tok_visa',
+            # transfer_data: {
+            #     destination: '<%= current_user.stripe_user_id %>'
+            # }
          })
 
         # invoiceItem = Stripe::InvoiceItem.create({
