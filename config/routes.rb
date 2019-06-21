@@ -8,10 +8,11 @@ Rails.application.routes.draw do
 
   devise_for :users,:controllers => { sessions: 'users/sessions',registrations: 'users/registrations',passwords: 'users/passwords' }
   root 'home#home'
-  get 'preview_receiver', to: 'donations#preview_receiver', as: :preview_receiver 
+  get 'preview_receiver', to: 'donations#preview_receiver', as: :preview_receiver
   get 'admin', to: 'home#admin', as: :admin
   get '/invoices/:id', to: 'user_panel#view_invoice', as: :view_invoice
   resources :users
+  get 'dashboard/test', to: 'user_panel#stripe_connect_handler', as: :stripe_connect
 
   resources :campaigns
 

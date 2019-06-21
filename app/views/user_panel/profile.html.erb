@@ -40,7 +40,7 @@
           <div role="tabpanel" class="tab-pane active" id="about">
                 <div class="row">
                     <div class="col-md-12">
-                        <%= current_user.bio %>
+                         
                     </div>
                 </div>
             </div>
@@ -93,11 +93,11 @@
 
                              <div class="">
                                 <!--<div class="progress"></div><br>-->
-                                <small></small>
+                                <small></small><br>
                                 <i>Just a little something for you</i><br>
-                                <a href="#">Leave a comment</a><br>
-                                <a href="https://connect.stripe.com/oauth/authorize?response_type=code&amp;client_id=ca_FFismWy4uVOpHgpHfND24fRQZxKeuawZ&amp;scope=read_write" class="btn btn-primary"><span>Stripe Connect</span></a>
-                             </div>
+                                <!-- <a href="#">Leave a comment</a><br> -->
+                                <!-- <button id="linkButton">Open Link - Institution Select</button> -->
+                            </div>
                              <div class="row align-items-center">
                                  <!--<div class="col-7">-->
                                  <!--    <a class="badge badge-pill badge-primary"><%#= c.occ_type %></a>-->
@@ -120,14 +120,14 @@
                                      <%#= link_to 'Delete', c, method: :delete, class:'btn btn-primary', data: { confirm: 'Are you sure?' } %>
                                  </div>
                              </div>
-                         </div>
+                          </div>
                      </div>
                  </div>
                  </div>
              <% end %>
 
             <% else %>
-                <p>You have no campaigns raised!!.</p>
+                <p>No money gifts exist!.</p>
             <% end %>
             </div>
          </div>
@@ -180,3 +180,64 @@
 	</div>
 </div>
 <% end %>
+
+<!-- <script
+src="https://cdn.plaid.com/link/v2/stable/link-initialize.js">
+</script>
+<script>
+var linkHandler = Plaid.create({
+  selectAccount: true,
+  env: 'sandbox',
+  clientName: 'Boonbee',
+  key: 'c7c813c4500539df8aa0eefb224526',
+  product: ['auth'],
+  onLoad: function() {
+    // The Link module finished loading.
+  },
+  onSuccess: function(public_token, metadata) {
+    // The onSuccess function is called when the user has successfully
+    // authenticated and selected an account to use.
+    //
+    // When called, you will send the public_token and the selected
+    // account ID, metadata.account_id, to your backend app server.
+    //
+    // sendDataToBackendServer({
+    //   public_token: public_token,
+    //   account_id: metadata.account_id
+    // });
+
+    $.ajax({
+     type: "POST",// GET in place of POST
+     url: "/dashboard/test",
+     data : {
+       public_token: public_token,
+       account_id: metadata.account_id
+     },
+     success: function (result) {
+        //do somthing here
+        window.alert("success!!");
+     },
+     error: function (){
+        window.alert("something wrong!");
+     }
+    });
+    console.log('Public Token: ' + public_token);
+    console.log('Customer-selected account ID: ' +
+    metadata.account_id);
+  },
+  onExit: function(err, metadata) {
+    // The user exited the Link flow.
+    if (err != null) {
+      // The user encountered a Plaid API error prior to exiting.
+    }
+    // metadata contains information about the institution
+    // that the user selected and the most recent API request IDs.
+    // Storing this information can be helpful for support.
+  },
+});
+
+// Trigger the standard Institution Select view
+document.getElementById('linkButton').onclick = function() {
+  linkHandler.open();
+};
+</script> -->
