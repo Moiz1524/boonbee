@@ -32,5 +32,5 @@ Rails.application.configure do
     :user_name => Rails.application.secrets['mailer_username'],
     :password => Rails.application.secrets['mailer_password'],
     :authentication => :plain
-    }  
+    }
 end

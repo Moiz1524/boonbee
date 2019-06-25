@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/invoices/:id', to: 'user_panel#view_invoice', as: :view_invoice
   resources :users
   get 'dashboard/test', to: 'user_panel#stripe_connect_handler', as: :stripe_connect
+  get '/revoke', to: 'user_panel#revoke_stripe_connect', as: :revoke_stripe
 
   resources :campaigns
 

@@ -26,9 +26,11 @@
                   <% if current_user.admin %>
                     <a class="dropdown-item" href="<%= admin_panel_path %>">Admin Dashboard</a>
                   <% end %>
-                  <%# if current_user.stripe_user_id == nil %>
-                    <!-- <a class="dropdown-item" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=<%= ENV['stripe_client_key']%>&scope=read_write">Stripe Connect</a> -->
-                  <%# end %>
+                  <% if current_user.stripe_user_id == nil %>
+                    <a class="dropdown-item" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=<%= ENV['stripe_client_key'] %>&scope=read_write">Stripe Connect</a>
+                  <% else %>
+                    <a class="dropdown-item" href="<%= revoke_stripe_path %>">Disconnect Stripe</a>
+                  <% end %>
                   <a class="dropdown-item" href="<%= edit_user_registration_path %>">Settings</a>
                   <a class="dropdown-item" href="<%= destroy_user_session_path %>" data-method="delete">Log out</a>
                 </div>

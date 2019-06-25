@@ -42,7 +42,8 @@ class CampaignsController < ApplicationController
         if @campaign.update(campaign_params)
             redirect_to campaign_path(@campaign) ,notice: "Updated Successfully."
         else
-            redirect_back(fallback_location, edit_campaign_path(@campaign),alert: "Something went wrong. Please try again.")
+            redirect_back(fallback_location: edit_campaign_path(@campaign),alert: "Something went wrong. Please try again.")
+            puts @campaign.errors.full_messages
         end
     end
     def show
