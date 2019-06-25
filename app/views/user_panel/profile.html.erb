@@ -40,7 +40,7 @@
           <div role="tabpanel" class="tab-pane active" id="about">
                 <div class="row">
                     <div class="col-md-12">
-                         
+
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                              <div class="">
                                 <!--<div class="progress"></div><br>-->
                                 <small></small><br>
-                                <i>Just a little something for you</i><br>
+                                <i><%= d.message %></i><br>
                                 <!-- <a href="#">Leave a comment</a><br> -->
                                 <!-- <button id="linkButton">Open Link - Institution Select</button> -->
                             </div>
@@ -104,7 +104,7 @@
                                  <!--</div>-->
                                  <div class="col-12">
                                      <div class="btn btn-primary float-right donate-btn">
-                                     <%= social_share_button_tag(campaign_path(d.campaign), desc: d.campaign.occ_details, :allow_sites => %w(facebook)) %> Share
+                                       <%= social_share_button_tag(campaign_path(d.campaign), desc: d.campaign.occ_details, :allow_sites => %w(facebook)) %> Share
                                      </div>
                                  </div>
 

@@ -1,5 +1,5 @@
 class CreateCampaigns < ActiveRecord::Migration[5.2]
-  def up  
+  def up
     create_table :campaigns do |t|
       t.string "name"
       t.integer "occ_type"
@@ -7,12 +7,11 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
       t.attachment "image"
       t.integer "user_id"
       t.string "occ_details"
-      t.string "occ_funds"
       
-      t.timestamps 
+      t.timestamps
     end
   end
-  
+
   def down
     drop_table :campaigns
   end

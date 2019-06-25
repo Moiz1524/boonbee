@@ -6,12 +6,12 @@ default: &default
 
 development:
   <<: *default
-  database: freelance_development
+  database: boonbee_development
   username: moiz
   password:
 test:
   <<: *default
-  database: freelance_test
+  database: boonbee_test
 
 production:
   <<: *default

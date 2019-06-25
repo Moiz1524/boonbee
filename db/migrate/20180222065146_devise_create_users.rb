@@ -55,6 +55,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       # t.string :other_link3
       # t.text :experience
       t.boolean :admin, default: false
+      t.string :stripe_user_id
       # t.boolean :admin, default: false
 
       t.timestamps null: false

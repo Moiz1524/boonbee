@@ -4,11 +4,13 @@ class CreateDonations < ActiveRecord::Migration[5.2]
       t.integer "campaign_id"
       t.integer "user_id"
       t.string "stripe_id"
-      
+      t.text "message"
+      t.integer "amount"
+
       t.timestamps
     end
   end
-  
+
   def down
     drop_table :donations
   end
