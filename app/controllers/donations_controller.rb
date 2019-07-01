@@ -29,11 +29,10 @@ class DonationsController < ApplicationController
             customer: customer.id,
             amount: @amount,
             description: 'Boonbee Stripe customer',
-            currency: 'usd'
-            # source: 'tok_visa',
-            # transfer_data: {
-            #     destination: '<%= current_user.stripe_user_id %>'
-            # }
+            currency: 'usd',
+            transfer_data: {
+              destination: current_user.stripe_user_id
+           }
          })
 
         # invoiceItem = Stripe::InvoiceItem.create({
@@ -51,6 +50,10 @@ class DonationsController < ApplicationController
 
         @donation.stripe_id = charge.id
         @donation.save!
+        if @donation.request_id != nil
+          puts "Hello"
+          Request.find(@donation.request_id).update(:response => "processed")
+        end
 
         rescue Stripe::CardError => e
         flash[:error] = e.message
@@ -64,6 +67,6 @@ class DonationsController < ApplicationController
     end
 
     def donation_params
-        params.require(:donation).permit(:amount, :user_id, :campaign_id, :stripe_id, :message)
+        params.require(:donation).permit(:amount, :user_id, :campaign_id, :stripe_id, :request_id, :message)
     end
 end

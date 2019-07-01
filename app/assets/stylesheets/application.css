@@ -389,3 +389,9 @@ h4{
 .navbar-toggler {
   background-color: #437591 !important;
 }
+.icon-star{
+  position: absolute;
+top: 10px;
+right: 10px;
+color: gold;
+}

@@ -6,6 +6,7 @@ class CreateDonations < ActiveRecord::Migration[5.2]
       t.string "stripe_id"
       t.text "message"
       t.integer "amount"
+      t.integer "request_id"
 
       t.timestamps
     end

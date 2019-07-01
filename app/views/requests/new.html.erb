@@ -1,0 +1,43 @@
+<% if !@request.errors.empty? %>
+    <div id="error-explanation">
+        <h2><%= pluralize(@request.errors.size, "error") %>prohibited this record from being saved</h2>
+        <p>There were problems with the following fields:</p>
+        <ul>
+            <% @request.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+<div class="container-fluid bg-light py-4">
+    <div class="container">
+        <h3 class="mb-3">Request from <%= @user.username %></h3>
+        <%= form_for(@request) do |f| %>
+          <div class="row">
+            <%= f.hidden_field(:sender_id, {:value => current_user.id }) %>
+            <%= f.hidden_field(:receiver_id, {:value => @user.id}) %>
+              <div class="col-md-4">
+                <h4>Enter Amount!</h4>
+                <small>Require some money for your campaign</small>
+              </div>
+              <div class="col-md-8">
+                 <label class="mb-0">Enter Amount (USD)</label>
+                 <%= f.number_field(:amount,  {class: 'form-control'}) %>
+              </div>
+          </div>
+          <hr>
+          <div class="row">
+              <div class="col-md-4">
+                <h4>For what campaign?</h4>
+                <small>Select any of your active campaign</small>
+              </div>
+              <div class="col-md-8">
+                 <label class="mb-0">For what campaign?</label>
+                 <%= f.select(:campaign_id, Campaign.where(:user_id => current_user.id).collect{ |i| [i.name, i.id] }, { :include_blank => "Select One"}) %>
+              </div>
+          </div>
+          <hr>
+         <%= f.submit('Confirm Request', {class: 'btn btn-primary'}) %>
+        <% end %>
+    </div>
+</div>

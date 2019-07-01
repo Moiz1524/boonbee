@@ -1,0 +1,23 @@
+<div class="container py-3">
+    <h3>Search for People</h3>
+
+    <%= form_tag requests_path, method: :get do %>
+        <div class="field">
+            <%= text_field_tag :search, params[:search] %>
+            <%= submit_tag "Search" %>
+        </div>
+    <% end %>
+    <% if !@users.empty? %>
+      <% @users.each do |u| %>
+        <% if u.username == current_user.username %>
+          <li><%= u.username %> (ME)</li>
+        <% else %>
+        <ul>
+          <li><%= link_to(u.username, request_profile_path(:id => u.id )) %></li>
+        </ul>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p>No results found!.</p>
+    <% end %>
+</div>

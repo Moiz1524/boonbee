@@ -40,7 +40,39 @@
           <div role="tabpanel" class="tab-pane active" id="about">
                 <div class="row">
                     <div class="col-md-12">
-
+                      <table>
+                          <tr>
+                            <th>Occasion</th>
+                            <th>Date</th>
+                            <th>TOWARDS</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                          </tr>
+                          <% t_amount = 0 %>
+                          <% current_user.requests_as_sender.each do |r| %>
+                          <% t_amount = t_amount + r.amount %>
+                              <tr>
+                                <td><%= link_to(r.campaign.name, campaign_path(r.campaign)) %></td>
+                                <td><%= r.campaign.occ_date.strftime('%B %e ,%Y') %></td>
+                                <td><%= r.receiver.username %></td>
+                                <% if r.response == "pending" %>
+                                  <td style="color: red;"><%= r.response %></td>
+                                <% else %>
+                                  <td style="color: green;"><%= r.response %></td>
+                                <% end %>
+                                <td>$<%= r.amount %></td>
+                                <%#= link_to(d.campaign.name, campaign_path(d.campaign)) %>
+                                <%#= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url, target: :_blank ) if d.stripe_id.present? %>
+                              </tr>
+                          <% end %>
+                          <tr>
+                              <td><strong>TOTAL</strong></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td><strong>$<%= t_amount %></strong></td>
+                          </tr>
+                      </table>
                     </div>
                 </div>
             </div>
@@ -92,32 +124,16 @@
                              <h1>$<%= d.amount %></h1>
 
                              <div class="">
-                                <!--<div class="progress"></div><br>-->
                                 <small></small><br>
                                 <i><%= d.message %></i><br>
-                                <!-- <a href="#">Leave a comment</a><br> -->
-                                <!-- <button id="linkButton">Open Link - Institution Select</button> -->
                             </div>
                              <div class="row align-items-center">
-                                 <!--<div class="col-7">-->
-                                 <!--    <a class="badge badge-pill badge-primary"><%#= c.occ_type %></a>-->
-                                 <!--</div>-->
                                  <div class="col-12">
                                      <div class="btn btn-primary float-right donate-btn">
                                        <%= social_share_button_tag(campaign_path(d.campaign), desc: d.campaign.occ_details, :allow_sites => %w(facebook)) %> Share
                                      </div>
                                  </div>
-
-
-                                 <%# if c.job_flag %>
-                                      <%#= link_to("CashOut", root_path, class: "btn btn-primary float-right donate-btn") %>
-                                 <%# end %>
                                  <div class="col-5">
-                                     <%#= link_to("Received Payments", campaign_funds_path(c), class: 'btn btn-primary') %>
-                                     <!--<a href="javascript:void(0)" class="btn btn-primary mb-2" data-toggle="modal" data-target="#received_payments<%#= c.id %>">Received Payments</a>-->
-                                     <%#= link_to "Edit", edit_campaign_path(c), class: "btn btn-primary" %>
-                                     <%#= link_to 'Show', campaign_path(c), class: 'btn btn-primary'%>
-                                     <%#= link_to 'Delete', c, method: :delete, class:'btn btn-primary', data: { confirm: 'Are you sure?' } %>
                                  </div>
                              </div>
                           </div>
@@ -131,5 +147,5 @@
             <% end %>
             </div>
          </div>
+       </div>
      </div>
-</div>

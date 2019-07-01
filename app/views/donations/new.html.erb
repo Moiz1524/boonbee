@@ -11,11 +11,12 @@
 <%= form_for @donation do |f| %>
     <%= f.hidden_field :user_id, { :value => current_user.id } %>
     <%= f.hidden_field :campaign_id, { :value => params[:campaign_id] } %>
+    <%= f.hidden_field :request_id, { :value => params[:request_id] } %>
     <% c = Campaign.find(params[:campaign_id])%>
     <% receiver = c.user.username %>
     <div class="field">
       <%#= f.label "Enter amount in dollars" %>
-      <%= f.number_field :amount, class: 'form-control mb-3', placeholder: 'Enter amount in dollars' %>
+      <%= f.number_field :amount, {class: 'form-control mb-3', placeholder: 'Enter amount in dollars', value: params[:amount]} %>
     </div>
     <div class="field">
       <%#= f.label "Enter amount in dollars" %>
@@ -53,11 +54,22 @@
 </div>
 </div>
 <script>
+function donation(){
+
+}
   $(document).ready(function() {
+    var damount = $("#donation_amount").val();
+    $('.total_text').html(damount);
+      $('.actions').html('<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.configuration.stripe[:publishable_key] %>" data-description="A month\'s subscription" data-amount="' + $("#donation_amount").val() * 100 + '" data-locale="auto"><\/script>');
     $("#donation_amount").keyup(function(){
   var d_amount = $("#donation_amount").val();
       $('.actions').html('<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.configuration.stripe[:publishable_key] %>" data-description="A month\'s subscription" data-amount="' + $("#donation_amount").val() * 100 + '" data-locale="auto"><\/script>');
-      $('.total_text').html(d_amount);
+      if(d_amount == ""){
+        $('.total_text').html("0");
+      }
+      else{
+        $('.total_text').html(d_amount);
+      }
     })
   });
 </script>

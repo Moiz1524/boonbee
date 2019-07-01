@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Glad to see you again, <%= @user.username %></h1>
+    <p>
+      You have received a new money request from <%= @sender.username %>.<br>
+    </p>
+    <p>
+      In order to respond, just follow this link: <%= @url %>.
+    </p>
+    <p>Thanks for having us!</p>
+  </body>
+</html>

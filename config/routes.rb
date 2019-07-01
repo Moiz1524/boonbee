@@ -20,5 +20,10 @@ Rails.application.routes.draw do
   get 'campaigns/:id/campaign_funds', to: 'campaigns#campaign_funds', as: :campaign_funds
 
   resources :donations
+  get 'requests', :to => 'requests#index', as: :requests
+  match '/requests/new', :to => 'requests#new', :via => :get, as: :new_request
+  match 'requests/request_profile', :to => 'requests#request_profile', :via => :get, as: :request_profile
+  # match 'requests', :to => 'requests#create', :via => :post
+  resources :requests
 
 end

@@ -1,0 +1,84 @@
+<div class="profile-bg mb-3">
+    <div class="profile-bg-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                           <center> <img src="<%= @user.profile_pic.url %>" alt="<%= @user.name %>", class="img-fluid profile-show-image" /></center>
+                           <!-- <center><%#= link_to "Edit Profile", edit_user_registration_path, class: 'btn btn-primary mt-3' %></center> -->
+                        </div>
+                        <div class="col-md-7 mt-4">
+                            <h3 class="text-light center mb-0"><%= @user.username %></h3>
+                            <p class="text-light center mb-2 small"> <i class="fas fa-map-marker-alt"></i> <%= ( @user.location  if @user.location.present? ) || "Your location"%></p>
+                            <%= link_to "Make Request", new_request_path(:id => @user.id), class: "btn btn-primary" %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-4">
+    <div class="col-md-9 mx-auto mb-4 text-center">
+        <ul class="nav nav-tabs text-center profile-tabs" role="tablist">
+          <li class="nav-item font-23">
+            <a class="nav-link active profile-tabs-color pr-5" href="#about" role="tab" data-toggle="tab" aria-selected="true">About</a>
+          </li>
+          <!-- <li class="nav-item font-23">
+            <a class="nav-link profile-tabs-color pr-5" href="#contributors" role="tab" data-toggle="tab">Campaigns</a>
+          </li> -->
+          <li class="nav-item font-23">
+            <a class="nav-link profile-tabs-color pr-5" href="#campaign" role="tab" data-toggle="tab">Campaigns</a>
+          </li>
+        </ul>
+    </div>
+    <div class="col-md-9 mx-auto">
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="about">
+                <div class="row">
+                    <div class="col-md-12">
+                      <%= @user.bio %>
+                    </div>
+                </div>
+            </div>
+          <div role="tabpanel" class="tab-pane fade" id="campaign">
+            <% if @user.campaigns != [] %>
+                <% @user.campaigns.each do |c| %>
+                <%# if c.donations != [] %>
+                <div class="card my-3">
+                 <div class="row bg-light border">
+                     <div class="col-lg-4 col-xl-3 col-md-12 py-3">
+                         <img class="img-fluid f-img" src="<%= c.image %>">
+                     </div>
+                     <div class="col-lg-8 col-xl-9 col-md-12 pt-3 pb-2">
+                         <div class="">
+                             <span class="text-dark"><%= c.name %></span>
+                             <!--<span class="small"><%#= time_ago_in_words(c.updated_at) %> ago</span>-->
+                             <%# @amount = 0 %>
+                             <%# c.donations.each do |d| %>
+                                 <%# @amount = @amount + d.amount %>
+                             <%# end %>
+                             <p class="p-line-3 my-2"><%= c.occ_date.strftime('%B, %y') %></p>
+                             <h1>$$$</h1>
+                             <i><%= c.occ_details %></i>
+
+                            <div class="col-6">
+                                <small></small><br>
+
+                            </div>
+                          </div>
+                     </div>
+                 </div>
+                 </div>
+             <% end %>
+
+            <% else %>
+                <p>No campaigns exist for this user!.</p>
+            <% end %>
+            </div>
+         </div>
+       </div>
+     </div>

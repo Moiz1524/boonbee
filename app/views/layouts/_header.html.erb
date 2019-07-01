@@ -11,7 +11,10 @@
               </li>
               <% if user_signed_in? %>
                 <li class="nav-item active">
-                  <a class="nav-link" href="<%= campaigns_path %>"><i class="fas fa-funnel-dollar"></i> </i>Campaigns<span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="<%= campaigns_path %>"><i class="fas fa-funnel-dollar"></i></i> Campaigns<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="<%= requests_path %>"><i class="fas fa-hand-holding-usd"></i></i> Request Money<span class="sr-only">(current)</span></a>
                 </li>
               <% end %>
 

@@ -25,12 +25,13 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'https://freelance-a17100262.c9users.io' }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
-    :address => 'smtpout.secureserver.net',
-    :domain  => 'www.guidistan.com',
-    :port      => 80,
-    :user_name => Rails.application.secrets['mailer_username'],
-    :password => Rails.application.secrets['mailer_password'],
+    :port      => 587,
+    :address => 'smtp.mailgun.org',
+    :domain  => ENV['domain'],
+    :user_name => ENV['username'],
+    :password => ENV['password'],
     :authentication => :plain
     }
 end

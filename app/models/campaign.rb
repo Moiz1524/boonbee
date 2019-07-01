@@ -1,7 +1,7 @@
 class Campaign < ApplicationRecord
     belongs_to :user
-    # belongs_to :imageable, polymorphic: true
     has_many :donations
+    has_many :requests
 
     enum occ_type: [:festival, :birthday, :funeral]
 
