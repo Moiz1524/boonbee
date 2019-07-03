@@ -7,14 +7,18 @@
                              <div class="campaign-like">
                                  <div class="row">
                                      <div class="col-9">
-                                      <% if @campaign.occ_date < Time.now.strftime("%a, %d %b %Y").to_date %>
+                                      <% if !@campaign.active %>
                                          <span class="text-light"> <i class="far fa-clock"></i> Ended <%= @campaign.occ_date.strftime('%B, %y') %></span>
                                       <% else %>
                                          <span class="text-light"> <i class="far fa-clock"></i> Ends on <%= @campaign.occ_date.strftime('%B, %y') %></span>
                                       <% end %>
                                      </div>
                                      <div class="col-3 text-right">
-                                           <!--<span class="text-light">1 <i class="far fa-heart"></i></span>-->
+                                       <% if @campaign.active %>
+                                            <i class="fas fa-star icon-star"></i>
+                                       <% else %>
+                                            <i class="fas fa-closed-captioning icon-star"></i>
+                                       <% end %>
                                      </div>
                                  </div>
                              </div>
@@ -26,11 +30,9 @@
                                               <p class="text-light mb-0 line-height-9"><%= @campaign.user.username %></p>
                                           <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i> <%= @campaign.user.location %></p>
                                       </div>
-
-                                 </div>
+                                </div>
                              </div>
-
-                         </div>
+                        </div>
                      </div>
                  </div>
                  <div class="col-lg-7">

@@ -132,6 +132,10 @@
                                      <div class="btn btn-primary float-right donate-btn">
                                        <%= social_share_button_tag(campaign_path(d.campaign), desc: d.campaign.occ_details, :allow_sites => %w(facebook)) %> Share
                                      </div>
+                                     <% if !d.campaign.active %>
+                                       <% url = "https://dashboard.stripe.com/#{current_user.stripe_user_id}" %>
+                                       <%= link_to "Cashout", url, class:"btn btn-primary float-right donate-btn mr-2", :target => :blank %>
+                                     <% end %>
                                  </div>
                                  <div class="col-5">
                                  </div>

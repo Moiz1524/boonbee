@@ -1,7 +1,7 @@
 class Campaign < ApplicationRecord
     belongs_to :user
-    has_many :donations
-    has_many :requests
+    has_many :donations, dependent: :destroy
+    has_many :requests, dependent: :destroy
 
     enum occ_type: [:festival, :birthday, :funeral]
 

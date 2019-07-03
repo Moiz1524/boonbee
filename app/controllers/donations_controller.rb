@@ -14,45 +14,55 @@ class DonationsController < ApplicationController
 
     def new
         @donation = Donation.new
+        c = Campaign.find(params[:campaign_id])
+        if !c.active
+            flash[:alert] = "Campaign has already been ended!"
+            redirect_to(campaigns_path)
+        end
     end
 
     def create
         @donation = current_user.donations.new(donation_params)
-        @donation_receiver = @donation.campaign.user.username
-        @amount = @donation.amount * 100
-        customer = Stripe::Customer.create({
-            email: current_user.email,
-            source: params[:stripeToken],
-        })
+        if @donation.campaign.active
+          @donation_receiver = @donation.campaign.user.username
+          @amount = @donation.amount * 100
+          customer = Stripe::Customer.create({
+              email: current_user.email,
+              source: params[:stripeToken],
+          })
 
-        charge = Stripe::Charge.create({
-            customer: customer.id,
-            amount: @amount,
-            description: 'Boonbee Stripe customer',
-            currency: 'usd',
-            transfer_data: {
-              destination: current_user.stripe_user_id
-           }
-         })
+          charge = Stripe::Charge.create({
+              customer: customer.id,
+              amount: @amount,
+              description: 'Boonbee Stripe customer',
+              currency: 'usd',
+              transfer_data: {
+                destination: current_user.stripe_user_id
+             }
+           })
 
-        # invoiceItem = Stripe::InvoiceItem.create({
-        #     customer: customer.id,
-        #     amount: @amount,
-        #     currency: 'usd',
-        #     description: 'Campaign contribution',
-        # })
+          # invoiceItem = Stripe::InvoiceItem.create({
+          #     customer: customer.id,
+          #     amount: @amount,
+          #     currency: 'usd',
+          #     description: 'Campaign contribution',
+          # })
 
-        # invoice = Stripe::Invoice.create({
-        #   customer: customer.id,
-        # })
+          # invoice = Stripe::Invoice.create({
+          #   customer: customer.id,
+          # })
 
-        # Stripe::Invoice.finalize_invoice(invoice.id)
+          # Stripe::Invoice.finalize_invoice(invoice.id)
 
-        @donation.stripe_id = charge.id
-        @donation.save!
-        if @donation.request_id != nil
-          puts "Hello"
-          Request.find(@donation.request_id).update(:response => "processed")
+          @donation.stripe_id = charge.id
+          @donation.save!
+          if @donation.request_id != nil
+            puts "Hello"
+            Request.find(@donation.request_id).update(:response => "processed")
+          end
+        else
+          flash[:alert] = "Donation can't be made to a campaign which is inactive!"
+          redirect_to(campaigns_path)
         end
 
         rescue Stripe::CardError => e

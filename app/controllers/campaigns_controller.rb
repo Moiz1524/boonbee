@@ -20,15 +20,17 @@ class CampaignsController < ApplicationController
         end
     end
     def new
-        @campaign = Campaign.new()
+        @campaign = Campaign.new
     end
     def create
         @campaign = current_user.campaigns.new(campaign_params)
         # time = 2.minutes.from_now
-        time = (@campaign.occ_date.to_time - 24.hours).to_datetime
+        if @campaign.occ_date != nil
+          time = (@campaign.occ_date.to_time - 24.hours).to_datetime
+        end
         # time = @campaign.occ_date.strftime("%I:%M%p")
         if @campaign.save
-            CashOutWorker.perform_at(time, 'MyJob', 2, @campaign.id)
+            CampaignWorker.perform_at(time, 'MyJob', 2, @campaign.id)
             flash[:notice] = "Campaign created successfully!"
             redirect_to(@campaign)
         else

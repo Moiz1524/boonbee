@@ -6,8 +6,9 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
       t.date "occ_date"
       t.attachment "image"
       t.integer "user_id"
+      t.boolean "active", default: true
       t.string "occ_details"
-      
+
       t.timestamps
     end
   end

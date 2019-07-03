@@ -1,11 +1,11 @@
-class CashOutWorker
+class CampaignWorker
   include Sidekiq::Worker
 
   def perform(name, count, id)
     # Do something
     @campaign = Campaign.find(id)
-    @campaign.job_flag = true
+    @campaign.active = false
     @campaign.save
-    puts "Hello!."
+    puts "Hello! #{@campaign.name} has been ended."
   end
 end

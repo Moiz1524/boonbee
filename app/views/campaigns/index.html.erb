@@ -20,11 +20,15 @@
                      <div class="col-lg-5 col-xl-4 col-md-12">
                          <div class="fund-image" style="background-image:url('<%= c.image.url %>')">
                              <div class="fund-image-overlay px-2">
-                               <i class="fas fa-star icon-star"></i>
-                                 <div class="campaign-like">
+                               <% if c.active %>
+                                    <i class="fas fa-star icon-star"></i>
+                               <% else %>
+                                    <i class="fas fa-closed-captioning icon-star"></i>
+                               <% end %>
+                                  <div class="campaign-like">
                                      <div class="row">
                                          <div class="col-9">
-                                              <% if c.occ_date < Time.now.strftime("%a, %d %b %Y").to_date %>
+                                              <% if !c.active %>
                                                  <span class="text-light"> <i class="far fa-clock"></i> Ended <%= c.occ_date.strftime('%B, %y') %></span>
                                               <% else %>
                                                  <span class="text-light"> <i class="far fa-clock"></i> Ends on <%= c.occ_date.strftime('%B, %y') %></span>
@@ -71,7 +75,7 @@
                                  </div>
                                  <div class="col-6">
                                  <% if c.user.id != current_user.id %>
-                                 <%= link_to("Give Money", new_donation_path(:campaign_id => c.id), class: "btn btn-primary float-right donate-btn") %>
+                                    <%= link_to("Give Money", new_donation_path(:campaign_id => c.id), class: "btn btn-primary float-right donate-btn") %>
                                  <% end %>
                                  <%= social_share_button_tag(campaign_path(c), desc:  c.occ_details) %>
                                  </div>

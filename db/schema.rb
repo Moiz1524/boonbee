@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2019_06_26_103033) do
     t.bigint "image_file_size"
     t.datetime "image_updated_at"
     t.integer "user_id"
+    t.boolean "active", default: true
     t.string "occ_details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
