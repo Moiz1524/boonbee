@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   get '/dashboard',to: "user_panel#index", as: :user_panel
   get '/profile',to: "user_panel#profile", as: :myprofile
 
