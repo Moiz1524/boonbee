@@ -6,6 +6,9 @@
                     <%= select_tag :occ_type, options_for_select(@types),  {:include_blank => 'Select Occasion',  class: 'form-control'} %>
                 </div>
                 <div class="form-group">
+                    <%= text_field_tag :user_occ,[], {class:"form-control other_text d-non", placeholder:"Describe your Occasion's type"} %>
+                </div>
+                <div class="form-group">
                     <%= date_field_tag :occ_date, params[:occ_date], class: 'form-control' %>
                 </div>
                 <div class="form-group">
@@ -23,8 +26,8 @@
         </div>
     </div>
 </div>
-<div class="container-fluid bg-light py-5">
-  <div class="container">
+<div class="container-fluid bg-light">
+  <div class="container py-5">
       <h1 class="text-center mb-5">This section contain the Benefits of the Site</h1>
     <div class="row">
         <div class="col-md-4 text-center">
@@ -385,7 +388,7 @@
 
 <!--</div>-->
 <!-- </div>-->
- <div class="container-fluid py-5">
+ <div class="container-fluid">
      <div class="container">
          <%# Campaign.all.order("created_at DESC").includes(:user).each do |c| %>
             <!--<div class="card my-3">-->
@@ -460,4 +463,13 @@
            $('.get_m').hide();
        }
     });
+    $('#occ_type').on('change',function(){
+        if($(this).val() == "other"){
+            $('.other_text').show();
+        }
+        else{
+            $('.other_text').hide();
+        }
+    });
 </script>
+

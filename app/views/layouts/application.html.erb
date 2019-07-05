@@ -18,7 +18,7 @@
     <%# unless params[:controller]=='home' && params[:action]=='admin' %>
       <%= render 'layouts/header' %>
     <% if notice %>
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-success mb-0" role="alert">
           <%= notice || alert %>
         </div>
       <!-- <script>
@@ -32,7 +32,9 @@
     <% end %>
 
     <% if alert.present? %>
+    <div class="alert alert-danger mb-0" role="alert">
       <%= alert %>
+    </div>
       <!-- <script>
         swal({
             title: 'Oops!',
@@ -46,20 +48,20 @@
       <!-- <script>
         swal({
             title: 'Oops!',
-            text: "<%= flash[:warning] %>",
+            text: "<%= flash[] %>",
             type: 'warning'
         });
       </script> -->
     <% end %>
 
     <% if flash[:info].present? %>
-      <script>
+      <!-- <script>
         swal({
             title: 'Success',
-            text: "<%= flash[:info] %>",
+            text: "<%= flash[] %>",
             type: 'success'
         });
-      </script>
+      </script> -->
     <% end %>
       <%# unless params[:controller]=='home' && params[:action]=='admin' %>
       <%#= notice %>

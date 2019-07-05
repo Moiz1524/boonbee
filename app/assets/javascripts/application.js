@@ -15,7 +15,16 @@
 //= require social-share-button
 //= require_tree .
 
+
+
+
+
 $(function() {
+  $('#error-explanation').addClass('alert-danger');
+  $('#error-explanation').addClass('py-3');
+  $('#error-explanation ul').addClass('mb-0');
+  $('#error-explanation').addClass('mb-4');
+  $('.alert').fadeOut(2000);
   // Multiple images preview in browser
   var imagesPreview = function(input, placeToInsertImagePreview) {
     if (input.files) {

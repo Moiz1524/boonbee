@@ -1,17 +1,23 @@
-<div class="profile-bg mb-3">
+<div class="profile-bg">
     <div class="profile-bg-overlay">
         <div class="container">
             <div class="row">
                 <div class="col-lg-5">
                     <div class="row">
                         <div class="col-md-5 mb-3">
-                           <center> <img src="<%= current_user.profile_pic.url %>" alt="<%= current_user.name %>", class="img-fluid profile-show-image" /></center>
-                           <center><%= link_to "Edit Profile", edit_user_registration_path, class: 'btn btn-primary mt-3' %></center>
+                            <center> <img src="<%= current_user.profile_pic.url %>" alt="<%= current_user.name %>" , class="img-fluid profile-show-image" /></center>
+                            <center>
+                                <%= link_to "Edit Profile", edit_user_registration_path, class: 'btn btn-light mt-3' %>
+                            </center>
                         </div>
                         <div class="col-md-7 mt-4">
-                            <h3 class="text-light center mb-0"><%= current_user.username %></h3>
-                            <p class="text-light center mb-2 small"> <i class="fas fa-map-marker-alt"></i> <%= ( current_user.location  if current_user.location.present? ) || "Your location"%></p>
-                            <%= link_to "Start a new occasion", new_campaign_path, class: "btn btn-primary" %>
+                            <h3 class="text-secondar center mb-0">
+                                <%= current_user.username %>
+                            </h3>
+                            <p class="text-secondar center mb-2 small"> <i class="fas fa-map-marker-alt"></i>
+                                <%= ( current_user.location  if current_user.location.present? ) || "Your location"%>
+                            </p>
+                            <%= link_to "Start a new occasion", new_campaign_path, class: "btn btn-light" %>
                         </div>
                     </div>
                 </div>
@@ -20,136 +26,162 @@
         </div>
     </div>
 </div>
-
-<div class="container py-4">
-    <div class="col-md-9 mx-auto mb-4 text-center">
-         <ul class="nav nav-tabs text-center profile-tabs" role="tablist">
-          <li class="nav-item font-23">
-            <a class="nav-link active profile-tabs-color pr-5" href="#about" role="tab" data-toggle="tab" aria-selected="true">Current Request</a>
-          </li>
-          <li class="nav-item font-23">
-            <a class="nav-link profile-tabs-color pr-5" href="#contributors" role="tab" data-toggle="tab">Money Given</a>
-          </li>
-          <li class="nav-item font-23">
-            <a class="nav-link profile-tabs-color pr-5" href="#campaign" role="tab" data-toggle="tab">Money Gifts Received</a>
-          </li>
-        </ul>
-    </div>
-    <div class="col-md-9 mx-auto">
-        <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="about">
-                <div class="row">
-                    <div class="col-md-12">
-                      <table>
-                          <tr>
-                            <th>Occasion</th>
-                            <th>Date</th>
-                            <th>TOWARDS</th>
-                            <th>Status</th>
-                            <th>Amount</th>
-                          </tr>
-                          <% t_amount = 0 %>
-                          <% current_user.requests_as_sender.each do |r| %>
-                          <% t_amount = t_amount + r.amount %>
-                              <tr>
-                                <td><%= link_to(r.campaign.name, campaign_path(r.campaign)) %></td>
-                                <td><%= r.campaign.occ_date.strftime('%B %e ,%Y') %></td>
-                                <td><%= r.receiver.username %></td>
-                                <% if r.response == "pending" %>
-                                  <td style="color: red;"><%= r.response %></td>
-                                <% else %>
-                                  <td style="color: green;"><%= r.response %></td>
+<div class="container-fluid bg-light">
+    <div class="container py-5">
+        <div class="col-md-9 mx-auto mb-4 text-center">
+            <ul class="nav nav-tabs text-center profile-tabs" role="tablist">
+                <li class="nav-item font-23">
+                    <a class="nav-link active profile-tabs-color pr-5" href="#about" role="tab" data-toggle="tab" aria-selected="true">Current Request</a>
+                </li>
+                <li class="nav-item font-23">
+                    <a class="nav-link profile-tabs-color pr-5" href="#contributors" role="tab" data-toggle="tab">Money Given</a>
+                </li>
+                <li class="nav-item font-23">
+                    <a class="nav-link profile-tabs-color pr-5" href="#campaign" role="tab" data-toggle="tab">Money Gifts Received</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9 mx-auto">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="about">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table>
+                                <tr>
+                                    <th>Occasion</th>
+                                    <th>Date</th>
+                                    <th>TOWARDS</th>
+                                    <th>Status</th>
+                                    <th>Amount</th>
+                                </tr>
+                                <% t_amount = 0 %>
+                                <% current_user.requests_as_sender.each do |r| %>
+                                <% t_amount = t_amount + r.amount %>
+                                <tr>
+                                    <td>
+                                        <%= link_to(r.campaign.name, campaign_path(r.campaign)) %>
+                                    </td>
+                                    <td>
+                                        <%= r.campaign.occ_date.strftime('%B %e ,%Y') %>
+                                    </td>
+                                    <td>
+                                        <%= r.receiver.username %>
+                                    </td>
+                                    <% if r.response == "pending" %>
+                                    <td style="color: red;">
+                                        <%= r.response %>
+                                    </td>
+                                    <% else %>
+                                    <td style="color: green;">
+                                        <%= r.response %>
+                                    </td>
+                                    <% end %>
+                                    <td>$
+                                        <%= r.amount %>
+                                    </td>
+                                    <%#= link_to(d.campaign.name, campaign_path(d.campaign)) %>
+                                    <%#= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url, target: :_blank ) if d.stripe_id.present? %>
+                                </tr>
                                 <% end %>
-                                <td>$<%= r.amount %></td>
-                                <%#= link_to(d.campaign.name, campaign_path(d.campaign)) %>
-                                <%#= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url, target: :_blank ) if d.stripe_id.present? %>
-                              </tr>
-                          <% end %>
-                          <tr>
-                              <td><strong>TOTAL</strong></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td><strong>$<%= t_amount %></strong></td>
-                          </tr>
-                      </table>
+                                <tr>
+                                    <td><strong>TOTAL</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><strong>$
+                                            <%= t_amount %></strong></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-          <div role="tabpanel" class="tab-pane fade" id="contributors">
-              <table>
-                  <tr>
-                    <th>Occasion</th>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <!--<th>View Invoice</th>-->
-                  </tr>
-                  <% t_amount = 0 %>
-                  <% current_user.donations.each do |d| %>
-                  <% username = d.campaign.user.username %>
-                  <% t_amount = t_amount + d.amount %>
-                      <tr>
-                        <td><%= link_to("#{username} #{d.campaign.name}", campaign_path(d.campaign)) %></td>
-                        <td><%= d.updated_at.strftime('%B %e ,%Y') %></td>
-                        <td>$<%= d.amount %></td>
-                        <%#= link_to(d.campaign.name, campaign_path(d.campaign)) %>
-                        <%#= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url, target: :_blank ) if d.stripe_id.present? %>
-                      </tr>
-                  <% end %>
-                  <tr>
-                      <td><strong>TOTAL</strong></td>
-                      <td></td>
-                      <td><strong>$<%= t_amount %></strong></td>
-                  </tr>
-              </table>
-            </div>
-          <div role="tabpanel" class="tab-pane fade" id="campaign">
-            <% if current_user.campaigns != [] %>
-                <% @donations.sort.reverse.each do |d| %>
-                <%# if c.donations != [] %>
-                  <div class="card my-3">
-                 <div class="row bg-light border">
-                     <div class="col-lg-4 col-xl-3 col-md-12 py-3">
-                         <img class="img-fluid f-img" src="<%= d.user.profile_pic.url %>">
-                     </div>
-                     <div class="col-lg-8 col-xl-9 col-md-12 pt-3 pb-2">
-                         <div class="">
-                             <span class="text-dark"><%#= c.name %><%= d.user.username %></span>
-                             <!--<span class="small"><%#= time_ago_in_words(c.updated_at) %> ago</span>-->
-                             <%# @amount = 0 %>
-                             <%# c.donations.each do |d| %>
-                                 <%# @amount = @amount + d.amount %>
-                             <%# end %>
-                             <p class="p-line-3 my-2"><%= d.user.location %></p>
-                             <h1>$<%= d.amount %></h1>
-
-                             <div class="">
-                                <small></small><br>
-                                <i><%= d.message %></i><br>
+                <div role="tabpanel" class="tab-pane fade" id="contributors">
+                    <table>
+                        <tr>
+                            <th>Occasion</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <!--<th>View Invoice</th>-->
+                        </tr>
+                        <% t_amount = 0 %>
+                        <% current_user.donations.each do |d| %>
+                        <% username = d.campaign.user.username %>
+                        <% t_amount = t_amount + d.amount %>
+                        <tr>
+                            <td>
+                                <%= link_to("#{username} #{d.campaign.name}", campaign_path(d.campaign)) %>
+                            </td>
+                            <td>
+                                <%= d.updated_at.strftime('%B %e ,%Y') %>
+                            </td>
+                            <td>$
+                                <%= d.amount %>
+                            </td>
+                            <%#= link_to(d.campaign.name, campaign_path(d.campaign)) %>
+                            <%#= link_to("View Invoice", Stripe::Charge.retrieve(d.stripe_id).receipt_url, target: :_blank ) if d.stripe_id.present? %>
+                        </tr>
+                        <% end %>
+                        <tr>
+                            <td><strong>TOTAL</strong></td>
+                            <td></td>
+                            <td><strong>$
+                                    <%= t_amount %></strong></td>
+                        </tr>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="campaign">
+                    <% if current_user.campaigns != [] %>
+                    <% @donations.sort.reverse.each do |d| %>
+                    <%# if c.donations != [] %>
+                    <div class="card my-3">
+                        <div class="row bg-light border">
+                            <div class="col-lg-4 col-xl-3 col-md-12 py-3">
+                                <img class="img-fluid f-img" src="<%= d.user.profile_pic.url %>">
                             </div>
-                             <div class="row align-items-center">
-                                 <div class="col-12">
-                                     <div class="btn btn-primary float-right donate-btn">
-                                       <%= social_share_button_tag(campaign_path(d.campaign), desc: d.campaign.occ_details, :allow_sites => %w(facebook)) %> Share
-                                     </div>
-                                     <% if !d.campaign.active %>
-                                       <% url = "https://dashboard.stripe.com/#{current_user.stripe_user_id}" %>
-                                       <%= link_to "Cashout", url, class:"btn btn-primary float-right donate-btn mr-2", :target => :blank %>
-                                     <% end %>
-                                 </div>
-                                 <div class="col-5">
-                                 </div>
-                             </div>
-                          </div>
-                     </div>
-                 </div>
-                 </div>
-             <% end %>
-
-            <% else %>
-                <p>No money gifts exist!.</p>
-            <% end %>
+                            <div class="col-lg-8 col-xl-9 col-md-12 pt-3 pb-2">
+                                <div class="">
+                                    <span class="text-dark">
+                                        <%#= c.name %>
+                                        <%= d.user.username %></span>
+                                    <!--<span class="small"><%#= time_ago_in_words(c.updated_at) %> ago</span>-->
+                                    <%# @amount = 0 %>
+                                    <%# c.donations.each do |d| %>
+                                    <%# @amount = @amount + d.amount %>
+                                    <%# end %>
+                                    <p class="p-line-3 my-2">
+                                        <%= d.user.location %>
+                                    </p>
+                                    <h1>$
+                                        <%= d.amount %>
+                                    </h1>
+                                    <div class="">
+                                        <small></small><br>
+                                        <i>
+                                            <%= d.message %></i><br>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-12">
+                                            <div class="btn btn-primary float-right donate-btn">
+                                                <%= social_share_button_tag(campaign_path(d.campaign), desc: d.campaign.occ_details, :allow_sites => %w(facebook)) %> Share
+                                            </div>
+                                            <% if !d.campaign.active %>
+                                            <% url = "https://dashboard.stripe.com/#{current_user.stripe_user_id}" %>
+                                            <%= link_to "Cashout", url, class:"btn btn-primary float-right donate-btn mr-2", :target => :blank %>
+                                            <% end %>
+                                        </div>
+                                        <div class="col-5">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% end %>
+                    <% else %>
+                    <p>No money gifts exist!.</p>
+                    <% end %>
+                </div>
             </div>
-         </div>
-       </div>
-     </div>
+        </div>
+    </div>
+</div>    

@@ -1,71 +1,83 @@
 <div class="container py-5">
-  <div class="card">
-             <div class="row">
-                 <div class="col-lg-5">
-                     <div class="fund-image" style="background-image:url('<%= @campaign.image.url %>')">
-                         <div class="fund-image-overlay px-2">
-                             <div class="campaign-like">
-                                 <div class="row">
-                                     <div class="col-9">
-                                      <% if !@campaign.active %>
-                                         <span class="text-light"> <i class="far fa-clock"></i> Ended <%= @campaign.occ_date.strftime('%B, %y') %></span>
-                                      <% else %>
-                                         <span class="text-light"> <i class="far fa-clock"></i> Ends on <%= @campaign.occ_date.strftime('%B, %y') %></span>
-                                      <% end %>
-                                     </div>
-                                     <div class="col-3 text-right">
-                                       <% if @campaign.active %>
-                                            <i class="fas fa-star icon-star"></i>
-                                       <% else %>
-                                            <i class="fas fa-closed-captioning icon-star"></i>
-                                       <% end %>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="campaign-avatar">
-                                 <div class="d-inline-flex">
-                                     <div class="avatar mr-2" style="background-image:url('<%= @campaign.user.profile_pic.url %>')">
-                                      </div>
-                                      <div class="ml-1 mt-2">
-                                              <p class="text-light mb-0 line-height-9"><%= @campaign.user.username %></p>
-                                          <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i> <%= @campaign.user.location %></p>
-                                      </div>
+    <div class="card">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="fund-image" style="background-image:url('<%= @campaign.image.url %>')">
+                    <div class="fund-image-overlay px-3">
+                        <div class="campaign-like">
+                            <div class="row">
+                                <div class="col-9">
+                                    <% if !@campaign.active %>
+                                    <span class="text-light"> <i class="far fa-clock"></i> Ended
+                                        <%= @campaign.occ_date.strftime('%B, %y') %></span>
+                                    <% else %>
+                                    <span class="text-light"> <i class="far fa-clock"></i> Ends on
+                                        <%= @campaign.occ_date.strftime('%B, %y') %></span>
+                                    <% end %>
                                 </div>
-                             </div>
+                                <div class="col-3 text-right">
+                                    <% if @campaign.active %>
+                                    <i class="fas fa-star icon-star"></i>
+                                    <% else %>
+                                    <i class="fas fa-closed-captioning icon-star"></i>
+                                    <% end %>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                 </div>
-                 <div class="col-lg-7">
-                     <div class="p-2">
-                         <span class="text-dark"><%= @campaign.name %></span>
-                         <span class="small"><%= time_ago_in_words(@campaign.updated_at) %> ago</span>
-                         <% @amount = 0 %>
-                         <% @campaign.donations.each do |d| %>
-                             <% @amount = @amount + d.amount %>
-                         <% end %>
-                         <% if @campaign.user == current_user %>
-                             <p class="p-line-3 my-2">Funds Raised: <%= @amount %>$</p>
-                         <% else %>
-                             <p class="p-line-3 my-2">$$$</p>
-                         <% end %>
-                         <div class="my-2">
-                             <div class="progress">
-                              </div><br>
-                            <small><%#= @campaign.occ_funds %></small>
-                          </div>
-                              <% if @campaign.user_occ != nil %>
-                                <a class="badge badge-pill badge-primary"><%= @campaign.user_occ %></a><br>
-                              <% else %>
-                                <a class="badge badge-pill badge-primary"><%= @campaign.occ_type %></a><br>
-                              <% end %>
-                             <% if @campaign.user.id != current_user.id %>
-                                 <%= link_to("Give Money", new_donation_path(:campaign_id => @campaign.id ), class: "btn btn-primary float-right donate-btn") %>
-                             <% end %><br>
-                             <% if @campaign.user_id == current_user.id %>
-                                <%= social_share_button_tag(campaign_path(@campaign), desc:  @campaign.occ_details) %>
-                             <% end %><br>
-                     </div>
-                 </div>
-             </div>
-         </div>
+                        <div class="campaign-avatar">
+                            <div class="d-inline-flex">
+                                <div class="avatar mr-2" style="background-image:url('<%= @campaign.user.profile_pic.url %>')">
+                                </div>
+                                <div class="ml-1 mt-2">
+                                    <p class="text-light mb-0 line-height-9">
+                                        <%= @campaign.user.username %>
+                                    </p>
+                                    <p class="mb-0 text-light small"><i class="fas fa-map-marker-alt"></i>
+                                        <%= @campaign.user.location %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="p-2">
+                    <span class="text-dark">
+                        <%= @campaign.name %></span>
+                    <span class="small">
+                        <%= time_ago_in_words(@campaign.updated_at) %> ago</span>
+                    <% @amount = 0 %>
+                    <% @campaign.donations.each do |d| %>
+                    <% @amount = @amount + d.amount %>
+                    <% end %>
+                    <% if @campaign.user == current_user %>
+                    <p class="p-line-3 my-2">Funds Raised:
+                        <%= @amount %>$</p>
+                    <% else %>
+                    <p class="p-line-3 my-2">$$$</p>
+                    <% end %>
+                    <div class="my-2">
+                        <div class="progress">
+                        </div><br>
+                        <small>
+                            <%#= @campaign.occ_funds %></small>
+                    </div>
+                    <% if @campaign.user_occ != nil %>
+                    <a class="badge badge-pill badge-primary">
+                        <%= @campaign.user_occ %></a><br>
+                    <% else %>
+                    <a class="badge badge-pill badge-primary">
+                        <%= @campaign.occ_type %></a><br>
+                    <% end %>
+                    <% if @campaign.user.id != current_user.id %>
+                    <%= link_to("Give Money", new_donation_path(:campaign_id => @campaign.id ), class: "btn btn-primary float-right donate-btn") %>
+                    <% end %><br>
+                    <% if @campaign.user_id == current_user.id %>
+                    <%= social_share_button_tag(campaign_path(@campaign), desc:  @campaign.occ_details) %>
+                    <% end %><br>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

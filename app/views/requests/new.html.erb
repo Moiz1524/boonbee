@@ -1,7 +1,6 @@
 <% if !@request.errors.empty? %>
     <div id="error-explanation">
-        <h2><%= pluralize(@request.errors.size, "error") %>prohibited this record from being saved</h2>
-        <p>There were problems with the following fields:</p>
+        
         <ul>
             <% @request.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
