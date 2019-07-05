@@ -3,11 +3,13 @@ class Campaign < ApplicationRecord
     has_many :donations, dependent: :destroy
     has_many :requests, dependent: :destroy
 
-    enum occ_type: [:festival, :birthday, :funeral]
+    enum occ_type: [:birthday, :graduation, :holiday, :other]
 
     validate :occ_date_cannot_be_in_past
+    validates_presence_of :name
     validates_presence_of :occ_date
     validates_presence_of :occ_type
+    validates :user_occ, :presence => true, length: { maximum: 20 }
 
     def self.occ_type_options
       self.occ_types.map { |k,v| [k.capitalize, k] }

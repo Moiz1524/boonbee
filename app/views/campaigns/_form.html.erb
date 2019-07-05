@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-md-4">
             <h4>Enter a Name!</h4>
-            <small>Give a name to your campaign</small>
+            <small>Give a name to your occasion</small>
         </div>
         <div class="col-md-8">
              <label class="mb-0">Enter a Name!</label>
@@ -27,8 +27,14 @@
             <small>Select the category of occasion</small>
         </div>
         <div class="col-md-8">
-             <label class="mb-0">Whats the Occasion?</label>
-           <%= f.select(:occ_type, Campaign.occ_types.keys.to_a{ |i| [i.id]},{ selected: params[:occ_type] || f.object.occ_type}, {class: 'form-control'}) %>
+           <label class="mb-0">Whats the Occasion?</label>
+           <% if params[:occ_type] == "other" || f.object.occ_type == "other" %>
+              <%= f.text_field(:user_occ, {class: 'form-control', placeholder: "Describe your occasion's type (Max: 20 characters)"}) %>
+              <%= f.hidden_field :occ_type, {:value => params[:occ_type] || f.object.occ_type } %>
+           <% else %>
+              <%= f.select(:occ_type, Campaign.occ_type_options{ |i| [i.id]},{ selected: params[:occ_type] || f.object.occ_type}, {class: 'form-control'}) %>
+              <%= f.hidden_field :user_occ, {:value => params[:occ_type] || f.object.occ_type}%>
+           <% end %>
         </div>
     </div>
     <hr>
@@ -56,7 +62,7 @@
     <hr>
     <div class="row">
         <div class="col-md-4">
-            <h4>Campaign Picture</h4>
+            <h4>Occasion Picture</h4>
              <small>Upload a picture</small>
         </div>
         <div class="col-md-8">

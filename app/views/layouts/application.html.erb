@@ -18,38 +18,40 @@
     <%# unless params[:controller]=='home' && params[:action]=='admin' %>
       <%= render 'layouts/header' %>
     <% if notice %>
-        <!--<div class="alert alert-info" role="alert">-->
-        <!--  <strong>Info!</strong> <%#= notice || alert %>-->
-        <!--</div>-->
-      <script>
+        <div class="alert alert-info" role="alert">
+          <%= notice || alert %>
+        </div>
+      <!-- <script>
           swal({
               title: 'Success',
               text: "<%= notice %>",
               type: 'success',
               timer: 3000
           });
-        </script>
+        </script> -->
     <% end %>
-    
+
     <% if alert.present? %>
-      <script>
+      <%= alert %>
+      <!-- <script>
         swal({
             title: 'Oops!',
             text: "<%= alert %>",
             type: 'error'
         });
-      </script>
+      </script> -->
     <% end %>
     <% if flash[:warning] %>
-      <script>
+      <%= flash[:warning] %>
+      <!-- <script>
         swal({
             title: 'Oops!',
             text: "<%= flash[:warning] %>",
             type: 'warning'
         });
-      </script>
+      </script> -->
     <% end %>
-  
+
     <% if flash[:info].present? %>
       <script>
         swal({
@@ -62,14 +64,14 @@
       <%# unless params[:controller]=='home' && params[:action]=='admin' %>
       <%#= notice %>
       <%#= alert %>
-      <%# end %>  
+      <%# end %>
       <div class="container-main">
         <%= yield %>
       </div>
     <%# unless params[:controller]=='home' && params[:action]=='admin' %>
-      
+
     <%# end %>
       <%= render 'layouts/footer' %>
-    
+
   </body>
 </html>

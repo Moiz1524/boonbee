@@ -6,7 +6,7 @@
                 <%= render 'admin_panel/statistics' %>
                 <div class="card">
                     <div class="card-body">
-                <h3 class="mb-3">All Campaigns</h3>
+                <h3 class="mb-3">All Occasions</h3>
                   <div class="container py-3">
                     <%= form_tag all_campaigns_path, method: :get do %>
                         <div class="field">
@@ -58,7 +58,11 @@
                                              </div>
                                              <div class="row">
                                                  <div class="col-6">
-                                                      <a class="badge badge-pill badge-primary"><%= c.occ_type %></a>
+                                                   <% if @campaign.user_occ != "" %>
+                                                     <a class="badge badge-pill badge-primary"><%= @campaign.user_occ %></a><br>
+                                                   <% else %>
+                                                     <a class="badge badge-pill badge-primary"><%= @campaign.occ_type %></a><br>
+                                                   <% end %>
                                                  </div>
                                                  <div class="col-6">
                                                  <%# if c.user.id != current_user.id %>
@@ -75,11 +79,11 @@
                         <% else %>
                             <p>No results found!.</p>
                         <% end %>
-                        
+
                     </div>
                 </div>
               </div>
             </div>
-        </div>   
-    </div>    
+        </div>
+    </div>
 </div>

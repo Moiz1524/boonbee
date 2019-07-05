@@ -72,6 +72,6 @@ class CampaignsController < ApplicationController
     end
 
     def campaign_params
-        params.require(:campaign).permit(:name, :occ_type, :occ_date, :image, :user_id, :occ_details, :occ_funds)
+        params.require(:campaign).permit(:name, :occ_type, :occ_date, :image, :user_id, :occ_details, :occ_funds, :user_occ)
     end
 end

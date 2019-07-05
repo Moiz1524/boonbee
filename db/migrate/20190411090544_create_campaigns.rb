@@ -3,6 +3,7 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
     create_table :campaigns do |t|
       t.string "name"
       t.integer "occ_type"
+      t.string "user_occ"
       t.date "occ_date"
       t.attachment "image"
       t.integer "user_id"

@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_06_26_103033) do
   create_table "campaigns", force: :cascade do |t|
     t.string "name"
     t.integer "occ_type"
+    t.string "user_occ"
     t.date "occ_date"
     t.string "image_file_name"
     t.string "image_content_type"

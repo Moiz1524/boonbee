@@ -11,7 +11,7 @@
                         <div class="col-md-7 mt-4">
                             <h3 class="text-light center mb-0"><%= current_user.username %></h3>
                             <p class="text-light center mb-2 small"> <i class="fas fa-map-marker-alt"></i> <%= ( current_user.location  if current_user.location.present? ) || "Your location"%></p>
-                            <%= link_to "Start a new campaign", new_campaign_path, class: "btn btn-primary" %>
+                            <%= link_to "Start a new occasion", new_campaign_path, class: "btn btn-primary" %>
                         </div>
                     </div>
                 </div>
