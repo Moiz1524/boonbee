@@ -1,7 +1,113 @@
 <div class="container py-5">
-  <h3>Editing a campaign</h3>
+  <h3>Editing an occasion</h3>
   <%= form_for(@campaign) do |f| %>
-    <%= render(:partial => 'form', :locals => {:f => f})%>
-      <%= f.submit('Update Campaign', {class: 'btn btn-primary'}) %>
+  <% if !@campaign.errors.empty? %>
+  <div id="error-explanation">
+      <ul>
+          <% @campaign.errors.full_messages.each do |msg| %>
+          <li>
+              <%= msg %>
+          </li>
+          <% end %>
+      </ul>
+  </div>
+  <% end %>
+  <div class="row">
+      <div class="col-md-4">
+          <h4>Enter a Name!</h4>
+          <small>Give a name to your occasion</small>
+      </div>
+      <div class="col-md-8">
+          <label class="mb-0">Enter a Name!</label>
+          <%= f.text_field(:name,  {class: 'form-control', required:"true"}) %>
+      </div>
+  </div>
+  <hr>
+  <div class="row">
+      <div class="col-md-4">
+          <h4>Whats the Occasion type?</h4>
+          <small>Select the category of occasion</small>
+      </div>
+      <div class="col-md-8">
+          <label class="mb-0">Whats the Occasion?</label>
+          <%# if params[:occ_type] == "other" || f.object.occ_type == "other" %>
+          <%# else %>
+          <%= f.select(:occ_type, Campaign.occ_type_options{ |i| [i.id]},{ selected: params[:occ_type] || f.object.occ_type}, {class: 'form-control', required:"true"}) %>
+          <%#= f.hidden_field :user_occ, {:value => params[:occ_type] || f.object.occ_type}%>
+          <%= f.text_field(:user_occ, {class: 'form-control other_text d-non mt-2', placeholder: "Describe your occasion's type (Max: 20 characters)", maxlength:"20"}) %>
+          <%#= f.hidden_field :occ_type, {:value => params[:occ_type] || f.object.occ_type } %>
+          <%# end %>
+      </div>
+  </div>
+  <hr>
+  <div class="row">
+      <div class="col-md-4">
+          <h4>Occasion date</h4>
+          <small>Enter a date on which occasion ends</small>
+      </div>
+      <div class="col-md-8">
+          <label class="mb-0">Occasion date</label>
+          <%= f.date_field(:occ_date, {class: "form-control", required:"true", value: params[:occ_date]})%>
+      </div>
+  </div>
+  <hr>
+  <div class="row">
+      <div class="col-md-4">
+          <h4>Details about Occasion</h4>
+          <small>Give details about your occasion</small>
+      </div>
+      <div class="col-md-8">
+          <label class="mb-0">Details about Occasion</label>
+          <%= f.text_area(:occ_details, {class: "form-control", required:"true", placeholder: "Details about occasion"}) %>
+      </div>
+  </div>
+  <hr>
+  <div class="row">
+      <div class="col-md-4">
+          <h4>Occasion Picture</h4>
+          <small>Upload a picture</small>
+      </div>
+      <div class="col-md-8">
+          <div class="row">
+              <div class="col-8 text-center">
+                  <div class="profile-change-icon">
+                      <label for="file-input">
+                          <img id="blah" src="<%= f.object.image %>" alt="your image" class="setting-profile-image" width="200px" height="200px" />
+                          <%= f.file_field :image, id: 'file-input', class: 'imgInp d-none' %>
+                          <span class="middle text-center"><i class="fas fa-camera"></i></span>
+                  </div>
+                  </label>
+              </div>
+              <div class="col-4 text-right">
+                  <%= f.submit('Update Setup', {class: 'btn btn-primary'}) %>
+              </div>
+          </div>
+      </div>
+    </div>
   <% end %>
 </div>
+
+<script>
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#blah').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(".imgInp").change(function() {
+    readURL(this);
+});
+$('#campaign_occ_type').on('change', function() {
+    if ($(this).val() == "other") {
+        $('.other_text').show();
+    } else {
+        $('.other_text').hide();
+    }
+});
+</script>

@@ -7,19 +7,13 @@ default: &default
 development:
   <<: *default
   database: boonbee_development
-  username: rails
-  password: password
-  host: localhost
-  port: 5432
+  username: moiz
+  password:
 
 test:
   <<: *default
   database: boonbee_test
-  username: rails
-  password: password
-  host: localhost
-  port: 5432
-
+  
 production:
   <<: *default
   database: freelance_production

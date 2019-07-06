@@ -28,13 +28,14 @@
     </div>
     <div class="col-md-8">
         <label class="mb-0">Whats the Occasion?</label>
-        <%# if params[:occ_type] == "other" || f.object.occ_type == "other" %>
-        <%# else %>
-        <%= f.select(:occ_type, Campaign.occ_type_options{ |i| [i.id]},{ selected: params[:occ_type] || f.object.occ_type}, {class: 'form-control', required:"true"}) %>
-        <%#= f.hidden_field :user_occ, {:value => params[:occ_type] || f.object.occ_type}%>
-        <%= f.text_field(:user_occ, {class: 'form-control other_text d-non mt-2', placeholder: "Describe your occasion's type (Max: 20 characters)", maxlength:"20"}) %>
-        <%#= f.hidden_field :occ_type, {:value => params[:occ_type] || f.object.occ_type } %>
-        <%# end %>
+        <% if params[:occ_type] == "other" || f.object.occ_type == "other" %>
+          <%= f.select(:occ_type, Campaign.occ_type_options{ |i| [i.id]},{ selected: params[:occ_type] || f.object.occ_type, include_blank: 'Select One'}, {class: 'form-control', required:"true"}) %>
+          <%= f.text_field(:user_occ, {:value => params[:user_occ], class: 'form-control other_text d-non mt-2', placeholder: "Describe your occasion's type (Max: 20 characters)", maxlength:"20"}) %>
+        <% else %>
+          <%= f.select(:occ_type, Campaign.occ_type_options{ |i| [i.id]},{ selected: params[:occ_type] || f.object.occ_type}, {class: 'form-control', required:"true"}) %>
+          <%= f.hidden_field(:user_occ, {:value => params[:occ_type] || f.object.occ_type}) %>
+          <%= f.text_field(:user_occ, {:value => params[:user_occ], class: 'form-control other_text d-non mt-2', placeholder: "Describe your occasion's type (Max: 20 characters)", maxlength:"20"}) %>
+        <% end %>
     </div>
 </div>
 <hr>

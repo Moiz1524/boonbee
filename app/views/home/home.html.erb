@@ -6,7 +6,7 @@
                     <%= select_tag :occ_type, options_for_select(@types),  {:include_blank => 'Select Occasion',  class: 'form-control'} %>
                 </div>
                 <div class="form-group">
-                    <%= text_field_tag :user_occ,[], {class:"form-control other_text d-non", placeholder:"Describe your Occasion's type"} %>
+                    <%= text_field_tag :user_occ, params[:user_occ], {class:"form-control other_text d-non", placeholder:"Describe your Occasion's type", maxlength:"20"} %>
                 </div>
                 <div class="form-group">
                     <%= date_field_tag :occ_date, params[:occ_date], class: 'form-control' %>
@@ -472,4 +472,3 @@
         }
     });
 </script>
-

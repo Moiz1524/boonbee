@@ -63,7 +63,7 @@
                         <small>
                             <%#= @campaign.occ_funds %></small>
                     </div>
-                    <% if @campaign.user_occ != nil %>
+                    <% if @campaign.user_occ != "" %>
                     <a class="badge badge-pill badge-primary">
                         <%= @campaign.user_occ %></a><br>
                     <% else %>

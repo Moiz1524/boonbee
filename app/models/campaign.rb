@@ -9,7 +9,7 @@ class Campaign < ApplicationRecord
     validates_presence_of :name
     validates_presence_of :occ_date
     validates_presence_of :occ_type
-    validates :user_occ, :presence => true, length: { maximum: 20 }
+    validates :user_occ, length: { maximum: 20 }
 
     def self.occ_type_options
       self.occ_types.map { |k,v| [k.capitalize, k] }

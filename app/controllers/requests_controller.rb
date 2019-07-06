@@ -12,16 +12,15 @@ class RequestsController < ApplicationController
 
   def new
     @user = User.find(params[:id])
+    @request = Request.new
     if current_user.campaigns == []
       flash[:alert] = "You have no associated campaigns!"
       redirect_to(new_campaign_path)
     end
-    @request = Request.new
   end
 
   def create
     @request = Request.new(request_params)
-    if @request.campaign.active
       if @request.save
         receiver = User.find(@request.receiver_id)
         RequestMailer.with(user: receiver, req_id: @request.id).request_money_email.deliver
@@ -29,13 +28,17 @@ class RequestsController < ApplicationController
         redirect_to(myprofile_path)
       else
         flash[:alert] = "Something went wrong"
+        puts "#{@request.errors.full_messages}"
         # redirect_to(new_request_path(:id => @request.receiver_id))
         render('new', :locals => { :@user => User.find(@request.receiver_id) })
+        # if @request.campaign.active
+        #
+        # end
       end
-    else
-      flash[:alert] = "You cannot make request for an inactive campaign."
-      redirect_to(myprofile_path)
-    end
+    #   # else
+    #   flash[:alert] = "You cannot make request for an inactive campaign."
+    #   redirect_to(myprofile_path)
+    # end
   end
 
   def show
