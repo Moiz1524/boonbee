@@ -97,6 +97,9 @@
     </div>
     <% end %>
     <% else %>
-    <p class="py-4 px-3 bg-light mb-0 mt-4">No results found!.</p>
+      <div class="py-4 px-3 bg-light mb-0 mt-4 d-flex">
+        <p class="mr-5">No results found!.</p>
+        <%= link_to("Setup a New Occasion", new_campaign_path, { :class => 'pt-1' }) %>
+      </div>
     <% end %>
 </div>

@@ -1,20 +1,20 @@
 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark header">
   <div class="container">
-  <a class="navbar-brand" href="<%= root_path %>"><h2 class="text-primary">Boonbee</h2></a>
+  <a class="navbar-brand" href="<%= user_signed_in? ? myprofile_path : root_path %>"><h2 class="text-primary">Boonbee</h2></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="<%= root_path %>"><i class="fas fa-home"></i> Home<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="<%= user_signed_in? ? myprofile_path : root_path %>"><i class="fas fa-home"></i> Home<span class="sr-only">(current)</span></a>
               </li>
               <% if user_signed_in? %>
                 <li class="nav-item active">
                   <a class="nav-link" href="<%= campaigns_path %>"><i class="fas fa-funnel-dollar"></i></i> Occasions<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="<%= requests_path %>"><i class="fas fa-hand-holding-usd"></i></i> Request Money<span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="<%= requests_path %>"><i class="fas fa-hand-holding-usd"></i></i> Money Gift<span class="sr-only">(current)</span></a>
                 </li>
               <% end %>
 
@@ -24,17 +24,17 @@
                <li class="nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fas fa-user"></i> <%= current_user.username %></a>
                 <div class="dropdown-menu bg-light">
-                  <a class="dropdown-item" href="<%= user_panel_path %>">Dashboard</a>
+                  <!-- <a class="dropdown-item" href="<%= user_panel_path %>">Dashboard</a> -->
                   <a class="dropdown-item" href="<%= myprofile_path %>">Profile</a>
                   <% if current_user.admin %>
                     <a class="dropdown-item" href="<%= admin_panel_path %>">Admin Dashboard</a>
                   <% end %>
                   <% if current_user.stripe_user_id == nil %>
-                    <a class="dropdown-item" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=<%= ENV['stripe_client_key'] %>&scope=read_write">Stripe Connect</a>
+                    <a class="dropdown-item" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=<%= ENV['stripe_client_key'] %>&scope=read_write">Manage Money?</a>
                   <% else %>
-                    <a class="dropdown-item" href="<%= revoke_stripe_path %>">Disconnect Stripe</a>
+                    <a class="dropdown-item" href="<%= revoke_stripe_path %>">Manage Money ?</a>
                   <% end %>
-                  <a class="dropdown-item" href="<%= edit_user_registration_path %>">Settings</a>
+                  <!-- <a class="dropdown-item" href="<%#= edit_user_registration_path %>">Settings</a> -->
                   <a class="dropdown-item" href="<%= destroy_user_session_path %>" data-method="delete">Log out</a>
                 </div>
                 </li>

@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
           if resource.is_a?(User) and resource.admin
             admin_panel_path
           elsif resource.is_a?(User)
-            user_panel_path
+            myprofile_path
           else
             super
           end

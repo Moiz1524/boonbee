@@ -20,7 +20,7 @@
                         <option value="other">Someone Else</option>
                     </select>
                 </div>
-                    <a href="/campaigns" class="btn btn-primary btn-block give_m d-non">Give Money</a>
+                    <%= submit_tag "Give Money", class: 'btn btn-primary btn-block give_m d-non' %>
                     <%= submit_tag "Get Money", class: 'btn btn-primary btn-block get_m' %>
             <% end %>
         </div>
@@ -453,22 +453,25 @@
 
 
 <script type="text/javascript">
-    $('.me_else').on('change',function(){
-       if($(this).val() == "me"){
-           $('.give_m').hide();
-           $('.get_m').css('display','block');
-       }
-       if($(this).val() == "other"){
-           $('.give_m').css('display','block');
-           $('.get_m').hide();
-       }
-    });
-    $('#occ_type').on('change',function(){
-        if($(this).val() == "other"){
-            $('.other_text').show();
-        }
-        else{
-            $('.other_text').hide();
-        }
-    });
+$(document).ready(function(){
+  $('.me_else').on('change',function(){
+     if($(this).val() == "me"){
+         $('.give_m').hide();
+         $('.get_m').css('display','block');
+     }
+     if($(this).val() == "other"){
+         $('.give_m').css('display','block');
+         $('.get_m').hide();
+     }
+  });
+  $('#occ_type').on('change',function(){
+      if($(this).val() == "other"){
+          $('.other_text').show();
+      }
+      else{
+          $('.other_text').hide();
+      }
+  });
+});
+
 </script>

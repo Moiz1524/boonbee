@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get '/dashboard',to: "user_panel#index", as: :user_panel
   get '/profile',to: "user_panel#profile", as: :myprofile
+  match '/user_occasion_modal', :to => 'user_panel#new_user_occasion', :via => :get, :as => :user_occasion
 
   get 'admin_panel',to: 'admin_panel#index',as: :admin_panel
   get 'admin_panel/users',as: :admin_users

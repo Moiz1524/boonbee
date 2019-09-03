@@ -66,18 +66,18 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <%# if @campaign.user_occ != "" %>
+                                                    <% if c.user_occ != "" %>
                                                     <a class="badge badge-pill badge-primary">
-                                                        <%#= @campaign.user_occ %></a><br>
-                                                    <%# else %>
+                                                        <%= c.user_occ %></a><br>
+                                                    <% else %>
                                                     <a class="badge badge-pill badge-primary">
-                                                        <%#= @campaign.occ_type %></a><br>
-                                                    <%# end %>
+                                                        <%= c.occ_type %></a><br>
+                                                    <% end %>
                                                 </div>
                                                 <div class="col-6">
-                                                    <%# if c.user.id != current_user.id %>
-                                                    <%#= link_to("Donate", new_donation_path(:campaign_id => c.id), class: "btn btn-primary float-right donate-btn") %>
-                                                    <%# end %>
+                                                    <!-- <%# if c.user.id != current_user.id %>
+                                                      <%#= link_to("Donate", new_donation_path(:campaign_id => c.id), class: "btn btn-primary float-right donate-btn") %>
+                                                    <%# end %> -->
                                                     <%= social_share_button_tag(campaign_path(c), desc:  c.occ_details) %>
                                                 </div>
                                             </div>

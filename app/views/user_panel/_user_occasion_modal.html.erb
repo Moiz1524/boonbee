@@ -1,0 +1,57 @@
+<div class="modal fade" id="userOccasionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header d-block">
+        <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title text-center" id="exampleModalLabel">New User Occasion</h5>
+      </div>
+      <div class="modal-body">
+        <%= form_tag new_campaign_path, method: :get do %>
+            <div class="form-group">
+                <%= select_tag :occ_type, options_for_select(@types),  {:include_blank => 'Select Occasion',  class: 'form-control'} %>
+            </div>
+            <div class="form-group">
+                <%= text_field_tag :user_occ, params[:user_occ], {class:"form-control other_text d-non", placeholder:"Describe your Occasion's type", maxlength:"20"} %>
+            </div>
+            <div class="form-group">
+                <%= date_field_tag :occ_date, params[:occ_date], class: 'form-control' %>
+            </div>
+            <div class="form-group">
+                Who is this for?
+            </div>
+            <div class="form-group">
+                <select class="form-control me_else">
+                    <option value="me">Me</option>
+                    <option value="other">Someone Else</option>
+                </select>
+            </div>
+            <%= submit_tag "Give Money", class: 'btn btn-primary btn-block give_m d-non' %>
+            <%= submit_tag "Get Money", class: 'btn btn-primary btn-block get_m' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $('.me_else').on('change',function(){
+       if($(this).val() == "me"){
+           $('.give_m').hide();
+           $('.get_m').css('display','block');
+       }
+       if($(this).val() == "other"){
+           $('.give_m').css('display','block');
+           $('.get_m').hide();
+       }
+    });
+    $('#occ_type').on('change',function(){
+        if($(this).val() == "other"){
+            $('.other_text').show();
+        }
+        else{
+            $('.other_text').hide();
+        }
+    });
+</script>

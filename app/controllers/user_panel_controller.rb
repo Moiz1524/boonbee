@@ -66,4 +66,12 @@ class UserPanelController < ApplicationController
 
     end
   end
+
+  def new_user_occasion
+    respond_to do |format|
+      # format.html { redirect_to(root_path) }
+      @types = Campaign.occ_type_options
+      format.js {}
+    end
+  end
 end

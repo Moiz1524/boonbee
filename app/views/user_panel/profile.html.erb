@@ -17,7 +17,7 @@
                             <p class="text-secondar center mb-2 small"> <i class="fas fa-map-marker-alt"></i>
                                 <%= ( current_user.location  if current_user.location.present? ) || "Your location"%>
                             </p>
-                            <%= link_to "Start a new occasion", new_campaign_path, class: "btn btn-light" %>
+                            <%= link_to "Start a new occasion", user_occasion_path, { :class => "btn btn-light", :remote => true } %>
                         </div>
                     </div>
                 </div>
@@ -184,4 +184,10 @@
             </div>
         </div>
     </div>
-</div>    
+</div>
+
+<!-- User occasion modal start -->
+<div class="modal_div">
+  <!-- Data comes as an AJAX response here. -->
+</div>
+<!-- User occasion modal end -->
