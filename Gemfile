@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 gem 'rails', '~> 5.2', '>= 5.2.3'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 3.12'
 gem 'redis-rails'
 gem 'sidekiq'
 gem 'sass-rails', '~> 5.0'
